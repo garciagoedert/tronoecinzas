@@ -1,0 +1,2988 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trono de Cinzas - Livro do Mestre</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="h-screen flex overflow-hidden">
+
+    <!-- Sidebar Navigation -->
+    <aside class="w-72 flex-shrink-0 flex flex-col z-20 h-full max-h-screen">
+        <div class="p-8 text-center border-b border-gray-800/50 relative">
+            <div class="mb-3 text-red-700 drop-shadow-lg"><i data-lucide="sword" class="w-12 h-12 mx-auto"></i></div>
+            <h1 class="text-3xl font-black sidebar-title leading-none">TRONO &<br><span
+                    class="text-white/90">CINZAS</span></h1>
+            <p class="text-xs uppercase tracking-[0.2em] text-gray-500 mt-3">Guia do Mestre</p>
+        </div>
+
+        <div class="px-8 pb-4">
+            <div class="relative">
+                <input type="text" id="search-input" placeholder="Buscar..."
+                    class="w-full bg-black/20 border border-gray-700 rounded px-3 py-2 pl-9 text-sm text-gray-300 focus:outline-none focus:border-red-900 focus:ring-1 focus:ring-red-900 placeholder-gray-500 transition-all"
+                    onkeyup="handleSearch(this.value)">
+                <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-gray-600"></i>
+            </div>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto py-2 min-h-0">
+            <ul class="space-y-1">
+                <li><button onclick="showSection('intro')" class="nav-item w-full text-left px-8 py-3 font-bold active"
+                        id="btn-intro">Visão Geral</button></li>
+
+                <li
+                    class="px-8 py-3 text-[10px] uppercase tracking-widest text-gray-600 font-bold mt-4 border-t border-gray-800/50 pt-6">
+                    O Reino</li>
+                <li><button onclick="showSection('map')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-map">Mapa do Reino</button></li>
+                <li><button onclick="showSection('lore')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-lore">História & Lendas</button></li>
+                <li><button onclick="showSection('houses-north')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-north">O Norte Gélido</button></li>
+                <li><button onclick="showSection('houses-coast')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-coast">A Costa Mercante</button></li>
+                <li><button onclick="showSection('houses-plains')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-plains">Planícies Centrais</button></li>
+                <li><button onclick="showSection('houses-wild')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-wild">Fronteira Selvagem</button></li>
+
+                <li
+                    class="px-8 py-3 text-[10px] uppercase tracking-widest text-gray-600 font-bold mt-4 border-t border-gray-800/50 pt-6">
+                    Regras</li>
+                <li><button onclick="showSection('combat-blood')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-blood">Sangue (Combate)</button></li>
+                <li><button onclick="showSection('combat-tongue')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-tongue">Língua (Política)</button></li>
+
+                <li
+                    class="px-8 py-3 text-[10px] uppercase tracking-widest text-gray-600 font-bold mt-4 border-t border-gray-800/50 pt-6">
+                    Personagens</li>
+                <li><button onclick="showSection('classes')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-classes">Classes</button></li>
+                <li><button onclick="showSection('magic')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-magic">Magia Ritualística</button></li>
+                <li><button onclick="showSection('equipment')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-equipment">Equipamentos</button></li>
+
+                <li
+                    class="px-8 py-3 text-[10px] uppercase tracking-widest text-gray-600 font-bold mt-4 border-t border-gray-800/50 pt-6">
+                    Compêndio</li>
+                <li><button onclick="showSection('bestiary')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-bestiary">Bestiário</button></li>
+                <li><button onclick="showSection('npcs')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-npcs">Acervo de NPCs</button></li>
+
+                <li
+                    class="px-8 py-3 text-[10px] uppercase tracking-widest text-gray-600 font-bold mt-4 border-t border-gray-800/50 pt-6">
+                    Ferramentas</li>
+                <li><button onclick="showSection('character-sheet')" class="nav-item w-full text-left px-8 py-2 text-sm"
+                        id="btn-character-sheet">Ficha de Personagem</button></li>
+            </ul>
+        </nav>
+
+        <div class="p-6 text-xs text-center text-gray-600 border-t border-gray-800/50">
+            v1.1 • Aethelgard
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 overflow-y-auto p-8 lg:p-12 relative bg-black/50">
+        <!-- Background Wrapper for Parchment Look -->
+        <div class="max-w-5xl mx-auto parchment min-h-full p-8 md:p-12 shadow-2xl rounded-sm">
+
+            <!-- SECTION: INTRO -->
+            <div id="intro" class="content-section">
+                <div class="text-center mb-12">
+                    <h2 class="text-5xl font-black mb-2 text-red-900 uppercase tracking-tighter cinzel drop-shadow-sm">
+                        Aethelgard</h2>
+                    <div class="h-1 w-32 bg-red-900 mx-auto mb-4"></div>
+                    <p class="text-xl italic text-gray-600">O Reino das Cinzas e do Sangue</p>
+                </div>
+
+                <div class="prose prose-stone max-w-none text-lg leading-relaxed text-justify">
+                    <p
+                        class="mb-6 first-letter:text-5xl first-letter:font-bold first-letter:text-red-900 first-letter:mr-3 first-letter:float-left">
+                        Este é um cenário de <strong>Low Fantasy e Grimdark</strong>. Em Aethelgard, heróis morrem, a
+                        magia
+                        tem um preço terrível e as palavras podem ser tão afiadas quanto o aço valiriano. O trono está
+                        vazio, e as casas nobres afiam suas lâminas nas sombras.
+                    </p>
+
+                    <!-- Prologue Section -->
+                    <div class="mb-12 border-l-4 border-red-900 pl-6 py-2">
+                        <h3 class="text-2xl font-bold cinzel text-red-900 mb-4">Prólogo: O Último Suspiro</h3>
+                        <div class="prose max-w-none text-gray-800 font-serif leading-relaxed italic">
+                            <p class="mb-4">
+                                "O vento uiva através das frestas da Cidadela de Ferro, trazendo consigo o cheiro doce e
+                                enjoativo da podridão. Não é o cheiro de cadáveres comuns, mas de algo antigo, algo que
+                                estava
+                                dormindo e agora tem fome. Os velhos dizem que o Rei de Cinzas está morto, mas nós
+                                sabemos a
+                                verdade. Ele não morreu. Ele se tornou a terra."
+                            </p>
+                            <p class="mb-4">
+                                "Vocês não são heróis. Heróis morreram na Primeira Guerra. Vocês são o que sobrou.
+                                Mercenários, exilados, bastardos e quebrados. Mas vocês têm algo que os outros perderam:
+                                a vontade de não se ajoelhar para a escuridão."
+                            </p>
+                            <p>
+                                "A chama da esperança é fraca, trêmula, quase apagada. Mas enquanto houver um de vocês
+                                de pé,
+                                Aethelgard ainda não caiu. Peguem suas armas. A noite será longa."
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-12">
+                        <div class="bg-white/40 p-6 border border-gray-400/50 text-center shadow-sm rounded-sm">
+                            <i data-lucide="skull" class="w-10 h-10 mx-auto mb-3 text-red-900"></i>
+                            <h3 class="font-bold text-xl mb-2 cinzel">Mortalidade</h3>
+                            <p class="text-sm text-gray-700">Descanso não cura tudo. Ferimentos deixam cicatrizes. A
+                                morte é
+                                permanente e muitas vezes inglória.</p>
+                        </div>
+                        <div class="bg-white/40 p-6 border border-gray-400/50 text-center shadow-sm rounded-sm">
+                            <i data-lucide="crown" class="w-10 h-10 mx-auto mb-3 text-yellow-700"></i>
+                            <h3 class="font-bold text-xl mb-2 cinzel">Política</h3>
+                            <p class="text-sm text-gray-700">Status e Reputação são recursos vitais. Duelos sociais são
+                                mecânicos e tão letais quanto duelos de espada.</p>
+                        </div>
+                        <div class="bg-white/40 p-6 border border-gray-400/50 text-center shadow-sm rounded-sm">
+                            <i data-lucide="ban" class="w-10 h-10 mx-auto mb-3 text-gray-800"></i>
+                            <h3 class="font-bold text-xl mb-2 cinzel">Baixa Magia</h3>
+                            <p class="text-sm text-gray-700">Sem bolas de fogo. A magia é ritualística, envolve sangue,
+                                sacrifício e quase sempre termina em tragédia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: MAP -->
+            <div id="map" class="content-section hidden">
+                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="map" class="mr-3"></i>
+                    Mapa de Aethelgard</h2>
+
+                <div
+                    class="relative w-full aspect-[4/3] bg-[#e6d2a0] border-4 border-[#2c241b] shadow-inner rounded overflow-hidden p-4">
+                    <!-- Background Texture -->
+                    <div class="absolute inset-0 opacity-20"
+                        style="background-image: url('data:image/svg+xml,%3Csvg width=\'200\' height=\'200\' viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.4\'/%3E%3C/svg%3E');">
+                    </div>
+
+                    <!-- Pins Container -->
+                    <div id="map-pins-container" class="absolute inset-0 z-20 pointer-events-none">
+                        <!-- Pins will be injected here -->
+                    </div>
+
+                    <!-- Map Grid (Background Zones) -->
+                    <div
+                        class="grid grid-cols-2 grid-rows-2 h-full gap-4 relative z-10 opacity-50 hover:opacity-100 transition-opacity duration-500">
+
+                        <!-- North -->
+                        <div onclick="showSection('houses-north')"
+                            class="group relative border-2 border-dashed border-gray-600 hover:border-solid hover:border-blue-900 hover:bg-blue-900/10 transition-all cursor-pointer flex items-center justify-center">
+                            <div class="text-center">
+                                <i data-lucide="snowflake"
+                                    class="w-12 h-12 mx-auto mb-2 text-gray-600 group-hover:text-blue-900 transition-colors"></i>
+                                <h3 class="font-bold cinzel text-xl text-gray-800 group-hover:text-blue-900">O Norte
+                                    Gélido</h3>
+                                <p
+                                    class="text-xs text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Casa Varr, Kolder, Thorne...</p>
+                            </div>
+                            <div
+                                class="absolute top-2 left-2 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                Região I</div>
+                        </div>
+
+                        <!-- Wild (East/Mountains) - Placing it top right for layout balance -->
+                        <div onclick="showSection('houses-wild')"
+                            class="group relative border-2 border-dashed border-gray-600 hover:border-solid hover:border-green-900 hover:bg-green-900/10 transition-all cursor-pointer flex items-center justify-center">
+                            <div class="text-center">
+                                <i data-lucide="mountain"
+                                    class="w-12 h-12 mx-auto mb-2 text-gray-600 group-hover:text-green-900 transition-colors"></i>
+                                <h3 class="font-bold cinzel text-xl text-gray-800 group-hover:text-green-900">Fronteira
+                                    Selvagem</h3>
+                                <p
+                                    class="text-xs text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Casa Ironwood, Crow, Bleak...</p>
+                            </div>
+                            <div
+                                class="absolute top-2 right-2 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                Região IV</div>
+                        </div>
+
+                        <!-- Coast (West) -->
+                        <div onclick="showSection('houses-coast')"
+                            class="group relative border-2 border-dashed border-gray-600 hover:border-solid hover:border-teal-900 hover:bg-teal-900/10 transition-all cursor-pointer flex items-center justify-center">
+                            <div class="text-center">
+                                <i data-lucide="anchor"
+                                    class="w-12 h-12 mx-auto mb-2 text-gray-600 group-hover:text-teal-900 transition-colors"></i>
+                                <h3 class="font-bold cinzel text-xl text-gray-800 group-hover:text-teal-900">A Costa
+                                    Mercante</h3>
+                                <p
+                                    class="text-xs text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Casa Marell, Saltcliff, Dross...</p>
+                            </div>
+                            <div
+                                class="absolute bottom-2 left-2 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                Região II</div>
+                        </div>
+
+                        <!-- Plains (Center/South) -->
+                        <div onclick="showSection('houses-plains')"
+                            class="group relative border-2 border-dashed border-gray-600 hover:border-solid hover:border-yellow-900 hover:bg-yellow-900/10 transition-all cursor-pointer flex items-center justify-center">
+                            <div class="text-center">
+                                <i data-lucide="wheat"
+                                    class="w-12 h-12 mx-auto mb-2 text-gray-600 group-hover:text-yellow-900 transition-colors"></i>
+                                <h3 class="font-bold cinzel text-xl text-gray-800 group-hover:text-yellow-900">Planícies
+                                    Centrais</h3>
+                                <p
+                                    class="text-xs text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Casa Aurolan, Sterling, Vane...</p>
+                            </div>
+                            <div
+                                class="absolute bottom-2 right-2 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                Região III</div>
+                        </div>
+
+                    </div>
+
+                    <!-- Capital Marker (Overlay) -->
+                    <div
+                        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 text-center pointer-events-none">
+                        <i data-lucide="castle" class="w-8 h-8 text-red-900 drop-shadow-md mx-auto"></i>
+                        <span
+                            class="text-[10px] font-black uppercase text-red-900 tracking-widest bg-white/50 px-1 rounded">Trono
+                            Negro</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: LORE -->
+            <div id="lore" class="content-section hidden">
+                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="scroll" class="mr-3"></i>
+                    História & Lendas</h2>
+
+                <div class="prose prose-stone max-w-none mb-8">
+                    <h3 class="text-2xl font-bold text-red-900 cinzel mt-6 mb-4">A Era das Cinzas</h3>
+                    <p>O Reino de Aethelgard sangra. Não por invasão externa, mas por feridas abertas por seus próprios
+                        filhos. O Trono de Ferro Negro está vazio, e a coroa, perdida.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <!-- Timeline -->
+                    <div class="bg-white/40 p-6 border border-gray-400/50 rounded-sm relative">
+                        <h4 class="font-bold text-lg mb-4 flex items-center cinzel"><i data-lucide="hourglass"
+                                class="w-5 h-5 mr-2"></i> Linha do Tempo Recente</h4>
+                        <div class="space-y-6 border-l-2 border-gray-400 pl-4 ml-2">
+                            <div class="relative">
+                                <div class="absolute -left-[21px] top-1 w-3 h-3 bg-gray-600 rounded-full"></div>
+                                <span class="text-xs font-bold text-gray-500">50 Anos Atrás</span>
+                                <h5 class="font-bold text-sm">A Unificação de Aethelred</h5>
+                                <p class="text-xs text-gray-700">O Rei Aethelred, o Construtor, une as quatro regiões
+                                    sob
+                                    uma única bandeira após a Guerra dos Cem Invernos.</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-[21px] top-1 w-3 h-3 bg-yellow-600 rounded-full"></div>
+                                <span class="text-xs font-bold text-gray-500">10 Anos Atrás</span>
+                                <h5 class="font-bold text-sm">A Descoberta das Minas Profundas</h5>
+                                <p class="text-xs text-gray-700">Escavadores na Fronteira Selvagem encontram veios de um
+                                    minério estranho e pulsante. A riqueza flui, mas mineiros começam a adoecer.</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-[21px] top-1 w-3 h-3 bg-red-800 rounded-full animate-pulse">
+                                </div>
+                                <span class="text-xs font-bold text-red-800">3 Meses Atrás</span>
+                                <h5 class="font-bold text-sm text-red-900">A Noite das Taças Quebradas</h5>
+                                <p class="text-xs text-gray-700">Durante o Banquete do Solstício, o Rei Aethelred e toda
+                                    a linhagem real morrem envenenados. O caos se instala.</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-[21px] top-1 w-3 h-3 bg-black rounded-full"></div>
+                                <span class="text-xs font-bold text-gray-800">Hoje</span>
+                                <h5 class="font-bold text-sm">O Interregno</h5>
+                                <p class="text-xs text-gray-700">O Conselho de Regência falha. As Casas Nobres convocam
+                                    seus exércitos. A "Podridão Cinzenta" avança nas plantações.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- The Threat -->
+                    <div class="space-y-6">
+                        <div class="rule-box p-6 bg-gray-900 text-gray-300 border-l-4 border-gray-600">
+                            <h4 class="font-bold text-lg mb-2 text-gray-100 cinzel flex items-center"><i
+                                    data-lucide="cloud-fog" class="w-5 h-5 mr-2"></i> A Ameaça: A Podridão</h4>
+                            <p class="text-sm italic mb-4">"Primeiro o trigo fica cinza. Depois o gado. Depois os
+                                homens."
+                            </p>
+                            <p class="text-sm mb-2">Não é apenas o inverno. Uma praga fúngica avança do Oeste. Ela
+                                transforma matéria orgânica em pó cinzento.</p>
+                            <p class="text-sm"><strong class="text-white">Efeito em Jogo:</strong> Recursos escassos.
+                                Comida vale mais que ouro. Áreas infectadas causam dano necrótico e loucura.</p>
+                        </div>
+
+                        <div class="p-6 border-2 border-dashed border-red-900/30 bg-red-900/5 relative group">
+                            <div
+                                class="absolute -top-3 left-4 bg-[#f0e6d2] px-2 text-xs font-bold text-red-900 uppercase tracking-widest">
+                                Apenas para o Mestre</div>
+                            <h4 class="font-bold text-md mb-2 text-red-900 flex items-center"><i data-lucide="eye-off"
+                                    class="w-4 h-4 mr-2"></i> A Verdade Oculta</h4>
+                            <p class="text-sm text-gray-800 blur-sm group-hover:blur-none transition-all duration-500 cursor-help"
+                                title="Passe o mouse para revelar">
+                                O Rei não foi morto pelas Casas rivais. Foi o <strong>Culto da Cinza</strong>, uma seita
+                                que adora a Podridão como uma divindade purificadora. O líder do culto é o próprio
+                                <strong>Grão-Meistre Pycelle</strong> (ou equivalente), que controla o Conselho de
+                                Regência.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expanded Lore: Religion & Legends -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 border-t border-gray-400/50 pt-8">
+                    <div class="bg-gray-800 text-gray-300 p-6 shadow-lg rounded-sm">
+                        <h3 class="text-xl font-bold text-gray-100 cinzel mb-4 flex items-center"><i
+                                data-lucide="church" class="mr-2"></i> Religião: Os Deuses de Pedra</h3>
+                        <p class="text-sm mb-4 italic">"A pedra não sangra. A pedra não chora. A pedra aguenta."</p>
+                        <p class="text-sm mb-4 text-justify">
+                            Em Aethelgard, a fé nos Sete ou em deuses solares morreu com a esperança. A religião
+                            dominante é
+                            o <strong>Culto da Pedra</strong>. Eles adoram a permanência e a resistência. Seus templos
+                            são
+                            cavernas ou monólitos sem adornos.
+                        </p>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-start"><i data-lucide="minus"
+                                    class="w-4 h-4 mr-2 mt-1 text-gray-500"></i>
+                                <strong>O Pai da Montanha:</strong> Deus da força e da justiça implacável.
+                            </li>
+                            <li class="flex items-start"><i data-lucide="minus"
+                                    class="w-4 h-4 mr-2 mt-1 text-gray-500"></i>
+                                <strong>A Mãe Silenciosa:</strong> Deusa da morte e do repouso subterrâneo.
+                            </li>
+                            <li class="flex items-start"><i data-lucide="minus"
+                                    class="w-4 h-4 mr-2 mt-1 text-gray-500"></i>
+                                <strong>O Guardião:</strong> Deus dos juramentos e das fronteiras.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/40 p-6 border border-gray-400/50 rounded-sm">
+                        <h3 class="text-xl font-bold text-red-900 cinzel mb-4 flex items-center"><i
+                                data-lucide="book-open" class="mr-2"></i> Lendas Antigas</h3>
+
+                        <div class="mb-4">
+                            <h4 class="font-bold text-gray-900 text-sm uppercase tracking-wider mb-1">O Rei Sem Coroa
+                            </h4>
+                            <p class="text-xs text-gray-700 text-justify">
+                                Diz a lenda que o primeiro unificador de Aethelgard não foi um rei, mas um ferreiro que
+                                forjou uma coroa de ferro negro que ninguém conseguia erguer. Ele desapareceu nas Minas
+                                Profundas, prometendo retornar quando "o céu se tornasse cinza". Muitos acreditam que a
+                                Podridão é o sinal de seu retorno, não como salvador, mas como algo pior.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-sm uppercase tracking-wider mb-1">A Besta da Fenda
+                            </h4>
+                            <p class="text-xs text-gray-700 text-justify">
+                                Mineiros juram ouvir um batimento cardíaco vindo das profundezas da terra. A lenda diz
+                                que o
+                                mundo é apenas a casca de um ovo, e que a Besta da Fenda está chocando. Terremotos são
+                                seus
+                                movimentos. A Podridão é seu hálito.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: HOUSES NORTH -->
+            <div id="houses-north" class="content-section hidden">
+                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="snowflake"
+                        class="mr-3"></i>
+                    O Norte Gélido</h2>
+                <p class="italic mb-6 opacity-80">Rústicos, Honrados e Resistentes.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="grid-north"></div>
+            </div>
+
+            <!-- SECTION: HOUSES COAST -->
+            <div id="houses-coast" class="content-section hidden">
+                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="anchor" class="mr-3"></i>
+                    A Costa Mercante</h2>
+                <p class="italic mb-6 opacity-80">Ricos, Astutos e Navais.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="grid-coast"></div>
+            </div>
+
+            <!-- SECTION: HOUSES PLAINS -->
+            <div id="houses-plains" class="content-section hidden">
+                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="wheat" class="mr-3"></i>
+                    Planícies Centrais</h2>
+                <p class="italic mb-6 opacity-80">Política, Cavalaria e Agricultura.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="grid-plains"></div>
+            </div>
+
+            <!-- SECTION: HOUSES WILD -->
+            <div id="houses-wild" class="content-section hidden">
+                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="mountain"
+                        class="mr-3"></i>
+                    Fronteira Selvagem</h2>
+                <p class="italic mb-6 opacity-80">Bárbaros, Místicos e Guerrilheiros.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="grid-wild"></div>
+            </div>
+
+            <!-- SECTION: COMBAT BLOOD -->
+            <div id="combat-blood" class="content-section hidden">
+                <h2 class="section-title text-3xl font-bold flex items-center text-red-900"><i data-lucide="droplets"
+                        class="mr-3"></i> Sangue: Regras de Combate</h2>
+
+                <div class="space-y-8">
+                    <div class="rule-box p-6">
+                        <h3 class="text-xl font-bold mb-3 flex items-center"><i data-lucide="moon"
+                                class="w-5 h-5 mr-2"></i>
+                            Gritty Realism (Descanso)</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-white/50 p-4 border border-gray-400">
+                                <h4 class="font-bold border-b border-gray-400 mb-2">Descanso Curto</h4>
+                                <p class="text-sm"><span class="font-bold">Duração:</span> 8 Horas (Uma noite de sono).
+                                </p>
+                                <p class="text-sm mt-1">Recupera recursos de classe "curtos" e permite gastar Hit Dice
+                                    para curar.</p>
+                            </div>
+                            <div class="bg-white/50 p-4 border border-gray-400">
+                                <h4 class="font-bold border-b border-gray-400 mb-2">Descanso Longo</h4>
+                                <p class="text-sm"><span class="font-bold">Duração:</span> 7 Dias (Em local seguro).</p>
+                                <p class="text-sm mt-1">Recupera todos os PVs, Dados de Vida e Exaustão.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rule-box p-6">
+                        <h3 class="text-xl font-bold mb-3">Manobras de Combate</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                            <div class="bg-white/50 p-3 border-l-4 border-gray-800">
+                                <strong class="block text-gray-900 mb-1">Desarmar</strong>
+                                <p>Faça um Ataque vs Atletismo/Acrobacia do alvo. Sucesso: O alvo larga um item.</p>
+                            </div>
+                            <div class="bg-white/50 p-3 border-l-4 border-gray-800">
+                                <strong class="block text-gray-900 mb-1">Quebrar Escudo</strong>
+                                <p>Ataque com arma Pesada vs CA do alvo. Sucesso: O escudo racha (-1 CA cumulativo).</p>
+                            </div>
+                            <div class="bg-white/50 p-3 border-l-4 border-gray-800">
+                                <strong class="block text-gray-900 mb-1">Golpe Sujo</strong>
+                                <p>Enganação vs Intuição. Sucesso: Alvo Cego ou Atordoado até o fim do próximo turno
+                                    dele.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rule-box p-6 border-red-800">
+                        <h3 class="text-xl font-bold mb-3 flex items-center text-red-900"><i data-lucide="heart-crack"
+                                class="w-5 h-5 mr-2"></i> Ferimentos Persistentes</h3>
+                        <p class="mb-2">Ao cair a <strong>0 PV</strong>, o personagem ganha automaticamente <strong>1
+                                Nível de Exaustão</strong>.</p>
+                        <p class="mb-4">Ao sofrer um <strong>Acerto Crítico</strong>, role 1d20 na tabela de trauma:</p>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left border-collapse">
+                                <thead class="bg-red-900/10 text-red-900 uppercase font-bold">
+                                    <tr>
+                                        <th class="p-2 border border-red-900/20">d20</th>
+                                        <th class="p-2 border border-red-900/20">Ferimento</th>
+                                        <th class="p-2 border border-red-900/20">Efeito</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white/40">
+                                    <tr>
+                                        <td class="p-2 border border-gray-300 font-bold">1-9</td>
+                                        <td class="p-2 border border-gray-300">Cicatriz Menor</td>
+                                        <td class="p-2 border border-gray-300">Apenas cosmético. Conta uma história.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 border border-gray-300 font-bold">10-13</td>
+                                        <td class="p-2 border border-gray-300">Ferida na Perna</td>
+                                        <td class="p-2 border border-gray-300">-1.5m de deslocamento. Testes de DES
+                                            (Acrobacia) com Desvantagem.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 border border-gray-300 font-bold">14-16</td>
+                                        <td class="p-2 border border-gray-300">Ferida no Braço</td>
+                                        <td class="p-2 border border-gray-300">Não pode segurar itens com esse braço. -2
+                                            em ataques.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 border border-gray-300 font-bold">17-19</td>
+                                        <td class="p-2 border border-gray-300">Trauma Craniano</td>
+                                        <td class="p-2 border border-gray-300">Inconsciente por 1d4 horas. Acorda com 1
+                                            nível de Exaustão extra.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 border border-gray-300 font-bold text-red-700">20</td>
+                                        <td class="p-2 border border-gray-300 text-red-700 font-bold">Mutilação</td>
+                                        <td class="p-2 border border-gray-300">Perda de olho, orelha ou dedo.
+                                            Desvantagem permanente em testes relacionados.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="rule-box p-6">
+                        <h3 class="text-xl font-bold mb-3">Tática de Guerra</h3>
+                        <p><strong>Flanqueamento:</strong> Concede Vantagem no ataque.</p>
+                        <p><strong>Cobertura:</strong> Vital para sobrevivência contra arqueiros. Escudos quebram se
+                            absorverem dano excessivo (Regra opcional).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: COMBAT TONGUE -->
+            <div id="combat-tongue" class="content-section hidden">
+                <h2 class="section-title text-3xl font-bold flex items-center text-yellow-700"><i data-lucide="speech"
+                        class="mr-3"></i> Língua: Combate Social</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-gray-800 text-white p-6 rounded-sm shadow-lg">
+                        <h3 class="text-lg font-bold border-b border-gray-600 pb-2 mb-4 text-center">Atributos Sociais
+                        </h3>
+                        <div class="flex justify-between items-center mb-4">
+                            <span>PV Social (Determinação)</span>
+                            <span class="stat-badge bg-red-700 px-2 py-1 rounded">10 + WIS + Nível</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>Defesa Social (Insight)</span>
+                            <span class="stat-badge bg-blue-700 px-2 py-1 rounded">10 + Intuição</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-4 italic">Se a Determinação chegar a 0, o personagem cede, é
+                            humilhado ou revela um segredo.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-white/40 p-3 border-l-4 border-red-600">
+                            <h4 class="font-bold">Ataque Agressivo (Intimidar)</h4>
+                            <p class="text-sm">Usa Força/Carisma. Dano Alto (1d8 + Mod). Gera inimizade futura.</p>
+                        </div>
+                        <div class="bg-white/40 p-3 border-l-4 border-blue-600">
+                            <h4 class="font-bold">Ataque Lógico (Persuasão)</h4>
+                            <p class="text-sm">Usa Carisma/Int. Dano Médio (1d6 + Mod). Seguro.</p>
+                        </div>
+                        <div class="bg-white/40 p-3 border-l-4 border-purple-600">
+                            <h4 class="font-bold">Ataque Enganoso (Blefe)</h4>
+                            <p class="text-sm">Usa Carisma. Dano Alto (1d8 + Mod). <br><span
+                                    class="text-red-700 font-bold">Falha Crítica:</span> Você toma o dano.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-8 mt-8">
+                    <div class="rule-box p-6 bg-yellow-900/10 border-yellow-700">
+                        <h3 class="text-xl font-bold mb-4 flex items-center text-yellow-900"><i data-lucide="swords"
+                                class="w-5 h-5 mr-2"></i> Fases do Duelo Social</h3>
+
+                        <div class="relative border-l-2 border-yellow-700/30 ml-3 space-y-6 pl-6">
+                            <div class="relative">
+                                <div
+                                    class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-yellow-700 border-2 border-[#f0e6d2]">
+                                </div>
+                                <h4 class="font-bold text-yellow-900">1. Abertura (Iniciativa)</h4>
+                                <p class="text-sm text-gray-800">Define-se o objetivo. Quem tiver maior Status ou fizer
+                                    a melhor entrada rola Iniciativa (Carisma). O vencedor escolhe quem fala primeiro.
+                                </p>
+                            </div>
+                            <div class="relative">
+                                <div
+                                    class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-yellow-700 border-2 border-[#f0e6d2]">
+                                </div>
+                                <h4 class="font-bold text-yellow-900">2. Argumentação (Rodadas)</h4>
+                                <p class="text-sm text-gray-800">Troca de argumentos (Ataques). O dano reduz a
+                                    Determinação do oponente. Pode-se usar Insight (Defesa) para descobrir fraquezas
+                                    (Vantagem no próximo ataque).</p>
+                            </div>
+                            <div class="relative">
+                                <div
+                                    class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-yellow-700 border-2 border-[#f0e6d2]">
+                                </div>
+                                <h4 class="font-bold text-yellow-900">3. Fechamento (Ultimato)</h4>
+                                <p class="text-sm text-gray-800">Quando a Determinação de um lado cai a 0, o vencedor
+                                    faz sua exigência final. O perdedor deve aceitar ou escalar para violência física (o
+                                    que é uma desonra grave).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rule-box p-6">
+                        <h3 class="font-bold mb-2 flex items-center"><i data-lucide="crown" class="w-5 h-5 mr-2"></i>
+                            Reputação e Consequências</h3>
+                        <p class="text-sm mb-4">Status não é apenas ouro, é poder. Perder um duelo social tem
+                            consequências reais.</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-red-100 p-3 rounded border border-red-200">
+                                <strong class="text-red-800 text-xs uppercase tracking-wider">Humilhado</strong>
+                                <p class="text-xs mt-1">Desvantagem em testes de Carisma com qualquer um que presenciou
+                                    a derrota por 1 semana.</p>
+                            </div>
+                            <div class="bg-gray-200 p-3 rounded border border-gray-300">
+                                <strong class="text-gray-800 text-xs uppercase tracking-wider">Ostracismo</strong>
+                                <p class="text-xs mt-1">Ninguém daquela Casa ou facção fará negócios com você. Preços
+                                    dobram, portas se fecham.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: CLASSES -->
+            <div id="classes" class="content-section hidden">
+                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="users" class="mr-3"></i>
+                    Classes & Adaptações</h2>
+
+                <div class="mb-8 p-4 bg-red-900/10 border border-red-900 rounded">
+                    <h3 class="font-bold text-red-900 flex items-center uppercase"><i data-lucide="x-circle"
+                            class="mr-2"></i> Estritamente Proibido</h3>
+                    <p class="mt-2 text-sm">Magos (Wizard), Feiticeiros (Sorcerer), Bruxos (Warlock) e Druidas não estão
+                        disponíveis para jogadores. A magia é rara, aterrorizante e pertence aos monstros ou NPCs
+                        rituais.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="grid-classes"></div>
+            </div>
+
+            <!-- SECTION: MAGIC -->
+            <div id="magic" class="content-section hidden">
+                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="flame" class="mr-3"></i>
+                    Magia Ritualística</h2>
+
+                <div class="prose prose-stone max-w-none mb-8">
+                    <p class="text-lg leading-relaxed">
+                        Em Aethelgard, a magia não é uma ferramenta conveniente. É uma força antiga, perigosa e que
+                        <strong class="text-red-900">sempre cobra seu preço</strong>. Não há magos de torre lançando
+                        bolas de fogo.
+                        Há apenas rituais sussurrados em línguas mortas, sangue derramado em círculos de pedra, e pactos
+                        que
+                        destroem almas.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="rule-box p-6 bg-red-900/10">
+                        <h3 class="text-xl font-bold mb-3 flex items-center text-red-900"><i
+                                data-lucide="alert-triangle" class="w-5 h-5 mr-2"></i>
+                            Regras Gerais</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-start"><i data-lucide="minus"
+                                    class="w-4 h-4 mr-2 mt-1 text-red-700"></i>
+                                <span><strong>Tempo:</strong> Rituais levam no mínimo 10 minutos. Não podem ser feitos
+                                    em combate.</span>
+                            </li>
+                            <li class="flex items-start"><i data-lucide="minus"
+                                    class="w-4 h-4 mr-2 mt-1 text-red-700"></i>
+                                <span><strong>Componentes:</strong> Materiais específicos são obrigatórios e
+                                    consumidos.</span>
+                            </li>
+                            <li class="flex items-start"><i data-lucide="minus"
+                                    class="w-4 h-4 mr-2 mt-1 text-red-700"></i>
+                                <span><strong>Custo:</strong> Sempre há um custo (HP, Exaustão, Sanidade).</span>
+                            </li>
+                            <li class="flex items-start"><i data-lucide="minus"
+                                    class="w-4 h-4 mr-2 mt-1 text-red-700"></i>
+                                <span><strong>Risco:</strong> Falhas podem ser catastróficas.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-800 text-gray-300 p-6 shadow-lg rounded-sm">
+                        <h3 class="text-xl font-bold text-gray-100 mb-3 flex items-center"><i data-lucide="book-marked"
+                                class="w-5 h-5 mr-2"></i>
+                            Aprendendo Rituais</h3>
+                        <p class="text-sm mb-3">
+                            Rituais não são aprendidos em academias. São descobertos em:
+                        </p>
+                        <ul class="space-y-1 text-sm">
+                            <li>• Tomos proibidos em ruínas antigas</li>
+                            <li>• Ensinamentos de cultistas loucos</li>
+                            <li>• Pactos com entidades sombrias</li>
+                            <li>• Experimentação (perigosa)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold cinzel mb-6 text-red-900 border-b-2 border-red-900 pb-2">Rituais
+                    Conhecidos</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="grid-rituals"></div>
+            </div>
+
+            <!-- SECTION: CHARACTER SHEET -->
+            <div id="character-sheet" class="content-section hidden">
+                <div class="flex justify-between items-center mb-6 no-print">
+                    <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="file-text"
+                            class="mr-3"></i>
+                        Ficha de Personagem</h2>
+                    <button onclick="window.print()"
+                        class="bg-red-900 text-white px-4 py-2 rounded shadow hover:bg-red-800 transition-colors flex items-center text-sm font-bold">
+                        <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Imprimir Ficha
+                    </button>
+                </div>
+
+                <!-- A4 Sheet Container -->
+                <div class="sheet-container bg-white text-black p-8 mx-auto shadow-lg relative overflow-hidden"
+                    style="max-width: 210mm; min-height: 297mm; font-family: 'Merriweather', serif;">
+                    <!-- Border Decoration -->
+                    <div class="absolute inset-0 border-[3px] border-double border-gray-800 m-2 pointer-events-none">
+                    </div>
+                    <div class="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-gray-800"></div>
+                    <div class="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-gray-800"></div>
+                    <div class="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-gray-800"></div>
+                    <div class="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-gray-800"></div>
+
+                    <!-- Header -->
+                    <div class="flex justify-between items-end border-b-2 border-gray-800 pb-4 mb-6 relative z-10">
+                        <div>
+                            <h1 class="text-4xl font-black cinzel uppercase tracking-widest text-gray-900">Aethelgard
+                            </h1>
+                            <p class="text-xs uppercase tracking-[0.3em] text-gray-600">Ficha de Personagem</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-left">
+                                <div>
+                                    <label class="block text-[9px] uppercase font-bold text-gray-500">Nome</label>
+                                    <div class="border-b border-gray-400 w-32 h-6"></div>
+                                </div>
+                                <div>
+                                    <label class="block text-[9px] uppercase font-bold text-gray-500">Casa</label>
+                                    <div class="border-b border-gray-400 w-32 h-6"></div>
+                                </div>
+                                <div>
+                                    <label class="block text-[9px] uppercase font-bold text-gray-500">Classe</label>
+                                    <div class="border-b border-gray-400 w-32 h-6"></div>
+                                </div>
+                                <div>
+                                    <label class="block text-[9px] uppercase font-bold text-gray-500">Nível</label>
+                                    <div class="border-b border-gray-400 w-32 h-6"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Grid -->
+                    <div class="grid grid-cols-12 gap-6 relative z-10">
+
+                        <!-- Col 1: Attributes & Skills (4 cols) -->
+                        <div class="col-span-4 space-y-6">
+                            <!-- Attributes -->
+                            <div class="space-y-3">
+                                <div
+                                    class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
+                                    <div class="text-center w-12">
+                                        <span class="block text-xs font-bold uppercase text-gray-500">FOR</span>
+                                        <div class="text-xl font-black cinzel">10</div>
+                                    </div>
+                                    <div class="text-sm font-bold text-gray-700">+0</div>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
+                                    <div class="text-center w-12">
+                                        <span class="block text-xs font-bold uppercase text-gray-500">DES</span>
+                                        <div class="text-xl font-black cinzel">10</div>
+                                    </div>
+                                    <div class="text-sm font-bold text-gray-700">+0</div>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
+                                    <div class="text-center w-12">
+                                        <span class="block text-xs font-bold uppercase text-gray-500">CON</span>
+                                        <div class="text-xl font-black cinzel">10</div>
+                                    </div>
+                                    <div class="text-sm font-bold text-gray-700">+0</div>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
+                                    <div class="text-center w-12">
+                                        <span class="block text-xs font-bold uppercase text-gray-500">INT</span>
+                                        <div class="text-xl font-black cinzel">10</div>
+                                    </div>
+                                    <div class="text-sm font-bold text-gray-700">+0</div>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
+                                    <div class="text-center w-12">
+                                        <span class="block text-xs font-bold uppercase text-gray-500">SAB</span>
+                                        <div class="text-xl font-black cinzel">10</div>
+                                    </div>
+                                    <div class="text-sm font-bold text-gray-700">+0</div>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
+                                    <div class="text-center w-12">
+                                        <span class="block text-xs font-bold uppercase text-gray-500">CAR</span>
+                                        <div class="text-xl font-black cinzel">10</div>
+                                    </div>
+                                    <div class="text-sm font-bold text-gray-700">+0</div>
+                                </div>
+                            </div>
+
+                            <!-- Skills -->
+                            <div>
+                                <h3 class="font-bold text-xs uppercase border-b border-gray-800 mb-2">Perícias</h3>
+                                <ul class="text-[10px] space-y-1">
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Des)</span> Acrobacia
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Sab)</span> Adestrar Animais
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Int)</span> Arcanismo
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(For)</span> Atletismo
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Car)</span> Atuação
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Car)</span> Blefe
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Des)</span> Furtividade
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Int)</span> História
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Car)</span> Intimidação
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Sab)</span> Intuição
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Int)</span> Investigação
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Sab)</span> Medicina
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Int)</span> Natureza
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Sab)</span> Percepção
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Car)</span> Persuasão
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Des)</span> Prestidigitação
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Int)</span> Religião
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                            class="text-gray-400 mr-1">(Sab)</span> Sobrevivência
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Col 2: Vitals & Combat (8 cols) -->
+                        <div class="col-span-8 space-y-6">
+
+                            <!-- Vitals Row -->
+                            <div class="grid grid-cols-4 gap-4">
+                                <div class="col-span-1 border-2 border-gray-800 p-2 text-center rounded">
+                                    <label class="block text-[9px] uppercase font-bold text-gray-500">Classe de
+                                        Armadura</label>
+                                    <div class="text-3xl font-black cinzel mt-1"></div>
+                                </div>
+                                <div class="col-span-1 border-2 border-gray-800 p-2 text-center rounded">
+                                    <label class="block text-[9px] uppercase font-bold text-gray-500">Iniciativa</label>
+                                    <div class="text-3xl font-black cinzel mt-1"></div>
+                                </div>
+                                <div class="col-span-1 border-2 border-gray-800 p-2 text-center rounded">
+                                    <label
+                                        class="block text-[9px] uppercase font-bold text-gray-500">Deslocamento</label>
+                                    <div class="text-3xl font-black cinzel mt-1"></div>
+                                </div>
+                                <div class="col-span-1 border-2 border-gray-800 p-2 text-center rounded">
+                                    <label
+                                        class="block text-[9px] uppercase font-bold text-gray-500">Proficiência</label>
+                                    <div class="text-3xl font-black cinzel mt-1">+2</div>
+                                </div>
+                            </div>
+
+                            <!-- HP & Hit Dice -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="border border-gray-400 p-2 rounded bg-gray-50">
+                                    <div class="flex justify-between text-[9px] uppercase font-bold text-gray-500 mb-1">
+                                        <span>Pontos de Vida Máximos</span>
+                                        <span class="w-12 border-b border-gray-400"></span>
+                                    </div>
+                                    <div
+                                        class="h-16 text-center flex items-center justify-center text-4xl text-gray-200 font-bold">
+                                        PV ATUAIS</div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="border border-gray-400 p-2 rounded bg-gray-50">
+                                        <label
+                                            class="block text-[9px] uppercase font-bold text-gray-500 text-center">Dados
+                                            de Vida</label>
+                                        <div class="h-12"></div>
+                                    </div>
+                                    <div class="border border-gray-400 p-2 rounded bg-gray-50">
+                                        <label
+                                            class="block text-[9px] uppercase font-bold text-gray-500 text-center">Exaustão</label>
+                                        <div class="h-12 flex justify-center items-center space-x-1">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full bg-black"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Social Stats -->
+                            <div class="grid grid-cols-3 gap-4 border-t-2 border-b-2 border-gray-200 py-4">
+                                <div class="text-center">
+                                    <label class="block text-[9px] uppercase font-bold text-red-800">Determinação (PV
+                                        Social)</label>
+                                    <div class="text-xl font-bold cinzel text-gray-800 mt-1"></div>
+                                    <div class="text-[9px] text-gray-400">10 + Sab + Nível</div>
+                                </div>
+                                <div class="text-center">
+                                    <label class="block text-[9px] uppercase font-bold text-blue-800">Insight (Defesa
+                                        Social)</label>
+                                    <div class="text-xl font-bold cinzel text-gray-800 mt-1"></div>
+                                    <div class="text-[9px] text-gray-400">10 + Intuição</div>
+                                </div>
+                                <div class="text-center">
+                                    <label class="block text-[9px] uppercase font-bold text-yellow-700">Status da
+                                        Casa</label>
+                                    <div class="flex justify-center mt-2 space-x-1">
+                                        <div class="w-3 h-3 bg-yellow-700 rounded-full"></div>
+                                        <div class="w-3 h-3 bg-yellow-700 rounded-full"></div>
+                                        <div class="w-3 h-3 border border-yellow-700 rounded-full"></div>
+                                        <div class="w-3 h-3 border border-yellow-700 rounded-full"></div>
+                                        <div class="w-3 h-3 border border-yellow-700 rounded-full"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Weapons Table -->
+                            <div>
+                                <h3 class="font-bold text-xs uppercase border-b border-gray-800 mb-2">Ataques & Magias
+                                </h3>
+                                <table class="w-full text-xs text-left">
+                                    <thead>
+                                        <tr class="text-gray-500 border-b border-gray-300">
+                                            <th class="pb-1 w-1/3">Nome</th>
+                                            <th class="pb-1 w-1/6 text-center">Bônus</th>
+                                            <th class="pb-1 w-1/3">Dano/Tipo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-gray-800">
+                                        <tr class="border-b border-gray-200 h-8">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 h-8">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 h-8">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Equipment & Features Grid -->
+                            <div class="grid grid-cols-2 gap-6">
+                                <div>
+                                    <h3 class="font-bold text-xs uppercase border-b border-gray-800 mb-2">Equipamento
+                                    </h3>
+                                    <div class="space-y-1">
+                                        <div class="border-b border-gray-200 h-6"></div>
+                                        <div class="border-b border-gray-200 h-6"></div>
+                                        <div class="border-b border-gray-200 h-6"></div>
+                                        <div class="border-b border-gray-200 h-6"></div>
+                                        <div class="border-b border-gray-200 h-6"></div>
+                                        <div class="border-b border-gray-200 h-6"></div>
+                                        <div class="border-b border-gray-200 h-6"></div>
+                                        <div class="border-b border-gray-200 h-6"></div>
+                                    </div>
+                                    <div class="mt-4 flex justify-between text-xs text-gray-600">
+                                        <span><strong>PO:</strong> _____</span>
+                                        <span><strong>PP:</strong> _____</span>
+                                        <span><strong>PC:</strong> _____</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-xs uppercase border-b border-gray-800 mb-2">
+                                        Características & Talentos</h3>
+                                    <div class="border border-gray-300 rounded h-48 bg-gray-50"></div>
+                                </div>
+                            </div>
+
+                            <!-- Wounds -->
+                            <div class="border-2 border-dashed border-red-900/30 bg-red-900/5 p-3 rounded">
+                                <h3 class="font-bold text-xs uppercase text-red-900 mb-1">Ferimentos Persistentes &
+                                    Cicatrizes</h3>
+                                <div class="h-12 border-b border-red-900/20"></div>
+                                <div class="h-12 border-b border-red-900/20"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div
+                        class="absolute bottom-4 left-0 w-full text-center text-[9px] text-gray-400 uppercase tracking-widest">
+                        Trono & Cinzas • Guia do Mestre v1.1
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: EQUIPMENT -->
+            <div id="equipment" class="content-section hidden">
+                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="swords" class="mr-3"></i>
+                    Equipamentos & Itens</h2>
+
+                <div class="prose prose-stone max-w-none mb-8">
+                    <p class="text-lg leading-relaxed">
+                        Em Aethelgard, um bom equipamento pode significar a diferença entre vida e morte. Armaduras são
+                        símbolos de status, armas carregam histórias de gerações, e venenos são ferramentas de poder
+                        político.
+                    </p>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="mb-8 flex flex-wrap gap-3">
+                    <button onclick="filterEquipment('all')"
+                        class="equipment-filter active px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-white hover:bg-red-900 transition-colors font-semibold text-sm"
+                        data-category="all">
+                        <i data-lucide="grid-3x3" class="w-4 h-4 inline mr-2"></i>Todos
+                    </button>
+                    <button onclick="filterEquipment('weapons')"
+                        class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                        data-category="weapons">
+                        <i data-lucide="sword" class="w-4 h-4 inline mr-2"></i>Armas
+                    </button>
+                    <button onclick="filterEquipment('armor')"
+                        class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                        data-category="armor">
+                        <i data-lucide="shield" class="w-4 h-4 inline mr-2"></i>Armaduras
+                    </button>
+                    <button onclick="filterEquipment('tools')"
+                        class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                        data-category="tools">
+                        <i data-lucide="wrench" class="w-4 h-4 inline mr-2"></i>Ferramentas
+                    </button>
+                    <button onclick="filterEquipment('poisons')"
+                        class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                        data-category="poisons">
+                        <i data-lucide="flask-conical" class="w-4 h-4 inline mr-2"></i>Venenos
+                    </button>
+                    <button onclick="filterEquipment('rare')"
+                        class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                        data-category="rare">
+                        <i data-lucide="gem" class="w-4 h-4 inline mr-2"></i>Itens Raros
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-equipment"></div>
+            </div>
+
+            <!-- SECTION: BESTIARY -->
+            <div id="bestiary" class="content-section hidden">
+                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="skull" class="mr-3"></i>
+                    Bestiário</h2>
+
+                <div class="prose prose-stone max-w-none mb-8">
+                    <p class="text-lg leading-relaxed">
+                        As criaturas de Aethelgard não são apenas monstros para serem mortos por XP. São forças da
+                        natureza, maldições ambulantes e predadores que veem os humanos como presas fáceis.
+                    </p>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="mb-8 flex flex-wrap gap-3">
+                    <button onclick="filterBestiary('all')"
+                        class="bestiary-filter active px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-white hover:bg-red-900 transition-colors font-semibold text-sm"
+                        data-category="all">
+                        <i data-lucide="grid-3x3" class="w-4 h-4 inline mr-2"></i>Todos
+                    </button>
+                    <button onclick="filterBestiary('beast')"
+                        class="bestiary-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                        data-category="beast">
+                        <i data-lucide="paw-print" class="w-4 h-4 inline mr-2"></i>Feras
+                    </button>
+                    <button onclick="filterBestiary('undead')"
+                        class="bestiary-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                        data-category="undead">
+                        <i data-lucide="ghost" class="w-4 h-4 inline mr-2"></i>Mortos-Vivos
+                    </button>
+                    <button onclick="filterBestiary('monstrosity')"
+                        class="bestiary-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                        data-category="monstrosity">
+                        <i data-lucide="alert-octagon" class="w-4 h-4 inline mr-2"></i>Monstruosidades
+                    </button>
+                    <button onclick="filterBestiary('humanoid')"
+                        class="bestiary-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                        data-category="humanoid">
+                        <i data-lucide="user" class="w-4 h-4 inline mr-2"></i>Humanoides
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-bestiary"></div>
+            </div>
+
+            <!-- SECTION: NPCS -->
+            <div id="npcs" class="content-section hidden">
+                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="users" class="mr-3"></i>
+                    Acervo de NPCs</h2>
+
+                <div class="prose prose-stone max-w-none mb-8">
+                    <p class="text-lg leading-relaxed">
+                        Aliados, inimigos e contatos. Em Aethelgard, quem você conhece é mais importante do que o que
+                        você sabe.
+                    </p>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="mb-8 flex flex-wrap gap-3">
+                    <button onclick="filterNPCs('all')"
+                        class="npc-filter active px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-white hover:bg-red-900 transition-colors font-semibold text-sm"
+                        data-category="all">
+                        <i data-lucide="grid-3x3" class="w-4 h-4 inline mr-2"></i>Todos
+                    </button>
+                    <button onclick="filterNPCs('noble')"
+                        class="npc-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                        data-category="noble">
+                        <i data-lucide="crown" class="w-4 h-4 inline mr-2"></i>Nobres
+                    </button>
+                    <button onclick="filterNPCs('mercenary')"
+                        class="npc-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                        data-category="mercenary">
+                        <i data-lucide="sword" class="w-4 h-4 inline mr-2"></i>Mercenários
+                    </button>
+                    <button onclick="filterNPCs('commoner')"
+                        class="npc-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                        data-category="commoner">
+                        <i data-lucide="user" class="w-4 h-4 inline mr-2"></i>Plebeus
+                    </button>
+                    <button onclick="filterNPCs('mystic')"
+                        class="npc-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                        data-category="mystic">
+                        <i data-lucide="sparkles" class="w-4 h-4 inline mr-2"></i>Místicos
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-npcs"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modal Structure for Houses -->
+    <div id="house-modal" class="modal-backdrop" onclick="closeHouseModal(event)">
+        <div class="modal-content p-8 md:p-12" onclick="event.stopPropagation()">
+            <div class="close-modal" onclick="closeHouseModal(event)"><i data-lucide="x" class="w-8 h-8"></i></div>
+            <div id="modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Structure for Classes -->
+    <div id="class-modal" class="modal-backdrop" onclick="closeClassModal(event)">
+        <div class="modal-content p-8 md:p-12" onclick="event.stopPropagation()">
+            <div class="close-modal" onclick="closeClassModal(event)"><i data-lucide="x" class="w-8 h-8"></i></div>
+            <div id="class-modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Structure for Rituals -->
+    <div id="ritual-modal" class="modal-backdrop" onclick="closeRitualModal(event)">
+        <div class="modal-content p-8 md:p-12" onclick="event.stopPropagation()">
+            <div class="close-modal" onclick="closeRitualModal(event)"><i data-lucide="x" class="w-8 h-8"></i></div>
+            <div id="ritual-modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Structure for Equipment -->
+    <div id="equipment-modal" class="modal-backdrop" onclick="closeEquipmentModal(event)">
+        <div class="modal-content p-8 md:p-12" onclick="event.stopPropagation()">
+            <div class="close-modal" onclick="closeEquipmentModal(event)"><i data-lucide="x" class="w-8 h-8"></i></div>
+            <div id="equipment-modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Structure for Bestiary -->
+    <div id="bestiary-modal" class="modal-backdrop" onclick="closeBestiaryModal(event)">
+        <div class="modal-content p-8 md:p-12" onclick="event.stopPropagation()">
+            <div class="close-modal" onclick="closeBestiaryModal(event)"><i data-lucide="x" class="w-8 h-8"></i></div>
+            <div id="bestiary-modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Structure for NPCs -->
+    <div id="npc-modal" class="modal-backdrop" onclick="closeNPCModal(event)">
+        <div class="modal-content p-8 md:p-12" onclick="event.stopPropagation()">
+            <div class="close-modal" onclick="closeNPCModal(event)"><i data-lucide="x" class="w-8 h-8"></i></div>
+            <div id="npc-modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-body">
+        <!-- Content injected via JS -->
+    </div>
+    </div>
+    </div>
+
+    <script>
+        // Data for Houses
+        const houses = {
+            north: [
+                {
+                    name: "Casa Varr",
+                    sigil: "Urso Branco",
+                    motto: "A Rocha Aguenta",
+                    desc: "Mestres em fortificação e defesa. Vivem em castelos encravados nas montanhas.",
+                    icon: "shield",
+                    history: "A Casa Varr guarda o 'Passo do Gigante' há mil anos. Dizem que o fundador, Torr Varr, lutou contra um gigante de gelo com as próprias mãos e usou seus ossos para construir a fundação de Forte Rocha. Durante a Guerra dos Cem Invernos, eles resistiram a um cerco de dez anos, comendo couro fervido e ratos para não se renderem.",
+                    npcs: [
+                        { role: "Lorde", name: "Horgar Varr", desc: "Um homem imenso, sem três dedos da mão esquerda." },
+                        { role: "Herdeira", name: "Bruna Varr", desc: "Uma guerreira que lidera as patrulhas de esqui." }
+                    ],
+                    secret: "Eles estão secretamente se casando com os clãs bárbaros da fronteira para garantir a sobrevivência e aumentar seus números, algo considerado heresia pelo Sul."
+                },
+                {
+                    name: "Casa Kolder",
+                    sigil: "Três Pinheiros",
+                    motto: "O Inverno é Nosso",
+                    desc: "Especialistas em sobrevivência na neve e táticas de guerrilha no frio.",
+                    icon: "trees",
+                    history: "Os Kolder não vivem em castelos, mas em grandes salões de madeira escondidos nas florestas profundas. Eles são os melhores caçadores do reino e conhecem cada atalho na neve. Na última rebelião, dizimaram um exército real inteiro apenas atraindo-os para um lago congelado que cedeu.",
+                    npcs: [
+                        { role: "Lorde", name: "Silas Kolder", desc: "Fala pouco, observa muito. Nunca é visto sem seu arco." },
+                        { role: "Xamã", name: "Velha Osha", desc: "Dizem que ela fala com as árvores." }
+                    ],
+                    secret: "Eles praticam sacrifícios antigos para os 'Deuses da Floresta' em troca de invernos mais brandos em suas terras."
+                },
+                {
+                    name: "Casa Thorne",
+                    sigil: "Punho de Ferro",
+                    motto: "Sangramos Primeiro",
+                    desc: "Infantaria pesada de choque. Famosos por nunca recuarem.",
+                    icon: "gavel",
+                    history: "A vanguarda de qualquer exército do Norte. Os Thorne treinam seus filhos com armaduras pesadas desde os sete anos. Sua lealdade é absoluta, mas sua brutalidade em batalha é temida até por aliados.",
+                    npcs: [
+                        { role: "Lorde", name: "Titus Thorne", desc: "Um fanático militar que vê a paz como fraqueza." },
+                        { role: "Capitão", name: "Marcus 'Mão de Ferro'", desc: "Perdeu a mão em duelo e a substituiu por uma maça de ferro." }
+                    ],
+                    secret: "Eles possuem um estoque de 'Sangue de Demônio', uma poção proibida que os torna berserkers em batalha, mas encurta suas vidas."
+                },
+                {
+                    name: "Casa Wolven",
+                    sigil: "Olho de Lobo",
+                    motto: "Sempre Atentos",
+                    desc: "Batedores supremos e patrulheiros de fronteira.",
+                    icon: "eye",
+                    history: "Os olhos e ouvidos do Norte. A Casa Wolven mantém uma rede de torres de sinalização que pode alertar todo o reino em horas. São mestres em adestrar lobos gigantes.",
+                    npcs: [
+                        { role: "Lady", name: "Lyra Wolven", desc: "Cega de um olho, mas vê mais que qualquer um." },
+                        { role: "Mestre dos Canis", name: "Roran", desc: "Dorme com os lobos e cheira como eles." }
+                    ],
+                    secret: "Lyra Wolven é uma Warg (Troca-peles) e usa seus lobos para espionar os outros Lordes."
+                },
+                {
+                    name: "Casa Grim",
+                    sigil: "Caveira Coroada",
+                    motto: "O Fim é Certo",
+                    desc: "Executores da justiça real. Uma casa temida e isolada socialmente.",
+                    icon: "skull",
+                    history: "Ninguém gosta dos Grim. Eles são os carrascos oficiais e guardiões da prisão de 'Pico Gelado'. Sua sede é um castelo de pedra negra onde poucos entram e menos ainda saem.",
+                    npcs: [
+                        { role: "Lorde", name: "Mortimer Grim", desc: "Pálido, magro e com um senso de humor mórbido." },
+                        { role: "O Verdugo", name: "Sem Nome", desc: "Um gigante mudo que nunca tira o capuz." }
+                    ],
+                    secret: "Eles estão conduzindo experimentos de necromancia nos prisioneiros, tentando criar soldados que não sentem frio ou dor."
+                }
+            ],
+            coast: [
+                {
+                    name: "Casa Marell",
+                    sigil: "Sereia Dourada",
+                    motto: "Profundo como o Ouro",
+                    desc: "Dominam o comércio marítimo e os bancos costeiros.",
+                    icon: "coins",
+                    history: "A casa mais rica de Aethelgard. Fundada por um pirata lendário que comprou seu título, os Marell controlam todos os portos principais. Se algo entra ou sai do reino por mar, eles taxam.",
+                    npcs: [
+                        { role: "Lorde", name: "Dario Marell", desc: "Veste sedas importadas e sorri como um tubarão." },
+                        { role: "Tesoureira", name: "Lysa Marell", desc: "A verdadeira mente por trás da fortuna da família." }
+                    ],
+                    secret: "Eles estão financiando secretamente o 'Culto da Cinza' para desestabilizar a capital e forçar a redução de impostos reais."
+                },
+                {
+                    name: "Casa Saltcliff",
+                    sigil: "Farol Aceso",
+                    motto: "Nós Guiamos a Maré",
+                    desc: "Navegadores experientes e cartógrafos renomados.",
+                    icon: "navigation",
+                    history: "Exploradores natos. Os Saltcliff mapearam as ilhas desconhecidas do Oeste e trouxeram especiarias exóticas. Seu farol, a 'Chama Eterna', nunca se apagou em 300 anos.",
+                    npcs: [
+                        { role: "Lorde", name: "Vasco Saltcliff", desc: "Um velho lobo do mar com perna de pau e muitas histórias." },
+                        { role: "Navegadora", name: "Elara", desc: "Dizem que ela navega pelas estrelas mesmo de dia." }
+                    ],
+                    secret: "A 'Chama Eterna' é alimentada por magia de sangue, exigindo um sacrifício humano a cada solstício."
+                },
+                {
+                    name: "Casa Dross",
+                    sigil: "Caranguejo Vermelho",
+                    motto: "O Que Agarramos, Não Soltamos",
+                    desc: "Piratas reformados que agora atuam como mercenários navais.",
+                    icon: "anchor",
+                    history: "Brutais e eficientes. A Casa Dross limpa os mares de piratas... eliminando a concorrência. Sua frota é composta por navios capturados e reformados.",
+                    npcs: [
+                        { role: "Capitão-Mor", name: "Crag Dross", desc: "Tem o corpo coberto de tatuagens tribais." },
+                        { role: "Imediato", name: "Pike", desc: "Mestre em combate com arpão." }
+                    ],
+                    secret: "Eles ainda praticam pirataria em águas internacionais, atacando navios de reinos vizinhos sob bandeira falsa."
+                },
+                {
+                    name: "Casa Velaryon",
+                    sigil: "Cavalo Marinho",
+                    motto: "A Antiga Corrente",
+                    desc: "Tradição antiga e a frota naval mais pesada do reino.",
+                    icon: "waves",
+                    history: "A nobreza antiga do mar. Os Velaryon consideram os Marell 'novos ricos sem classe'. Possuem a maior frota de guerra, com galeões pesados capazes de destruir cidades costeiras.",
+                    npcs: [
+                        { role: "Almirante", name: "Lucian Velaryon", desc: "Arrogante, honrado e tradicionalista." },
+                        { role: "Herdeiro", name: "Jacaerys", desc: "Um jovem prodígio em táticas navais." }
+                    ],
+                    secret: "Eles guardam um ovo de dragão marinho petrificado em seu cofre, esperando o dia de chocá-lo."
+                },
+                {
+                    name: "Casa Pearl",
+                    sigil: "Ostra Negra",
+                    motto: "Beleza Escondida",
+                    desc: "Mestres da espionagem, donos de bordéis de luxo e redes de segredos.",
+                    icon: "gem",
+                    history: "Onde há prazer, há uma Casa Pearl. Eles controlam os bordéis, as casas de ópio e os teatros. Sabem os segredos de todos os lordes que visitam a costa para 'relaxar'.",
+                    npcs: [
+                        { role: "Madame", name: "Shae Pearl", desc: "Uma mulher de beleza atemporal e olhar perigoso." },
+                        { role: "O Sussurro", name: "Varys", desc: "Um eunuco que gerencia a rede de espiões." }
+                    ],
+                    secret: "Eles têm provas de que o filho bastardo do Rei (apoiado pelo Norte) não é filho do Rei, mas sim de um cavalariço."
+                }
+            ],
+            plains: [
+                {
+                    name: "Casa Aurolan",
+                    sigil: "Sol Nascente",
+                    motto: "A Luz Prevalece",
+                    desc: "Agricultura em massa. Suprem a comida de todo o reino.",
+                    icon: "sun",
+                    history: "Os celeiros do reino. A Casa Aurolan controla as terras mais férteis. Sem eles, Aethelgard morre de fome. Eles usam essa influência para evitar conflitos armados, preferindo sanções econômicas.",
+                    npcs: [
+                        { role: "Lorde", name: "Mace Aurolan", desc: "Gordo, jovial, mas com uma mente afiada para números." },
+                        { role: "Lady", name: "Olenna", desc: "A avó da família, conhecida como 'Rainha dos Espinhos'." }
+                    ],
+                    secret: "Eles estão queimando suas próprias colheitas infectadas pela Podridão e escondendo a extensão da praga para evitar pânico (e queda nos preços)."
+                },
+                {
+                    name: "Casa Sterling",
+                    sigil: "Leão de Prata",
+                    motto: "Puro Valor",
+                    desc: "A cavalaria de elite. Obcecados por torneios e honra.",
+                    icon: "award",
+                    history: "A imagem ideal da cavalaria. Os Sterling produzem os melhores cavaleiros e ganham todos os torneios. Vivem pelo código de honra, o que os torna previsíveis, mas inspiradores.",
+                    npcs: [
+                        { role: "Lorde", name: "Jaime Sterling", desc: "Considerado o melhor espadachim do reino." },
+                        { role: "Escudeiro", name: "Pod", desc: "Leal e corajoso, apesar de desajeitado." }
+                    ],
+                    secret: "O Lorde Jaime perdeu a habilidade com a espada devido a uma doença degenerativa e usa um dublê em torneios."
+                },
+                {
+                    name: "Casa Vane",
+                    sigil: "Raposa Correndo",
+                    motto: "Astúcia sobre Força",
+                    desc: "Diplomatas, advogados e casamenteiros perigosos.",
+                    icon: "feather",
+                    history: "Se uma guerra terminou em tratado, foi um Vane que escreveu. Eles resolvem disputas (e criam algumas) com a pena. São os advogados e burocratas indispensáveis.",
+                    npcs: [
+                        { role: "Lorde", name: "Petyr Vane", desc: "Sorriso amigável, olhos frios." },
+                        { role: "Filha", name: "Sansa", desc: "Aprendeu o jogo político rápido demais." }
+                    ],
+                    secret: "Eles falsificaram o testamento do Rei morto para favorecer sua própria ascensão ao poder."
+                },
+                {
+                    name: "Casa Rosethorn",
+                    sigil: "Rosa Espinhosa",
+                    motto: "Beleza e Sangue",
+                    desc: "Patronos das artes, mas conhecedores profundos de venenos.",
+                    icon: "flower",
+                    history: "Seus jardins são lendários, assim como seus banquetes. Mas dizem que cada rosa em seu jardim cresce sobre um corpo enterrado. Mestres em botânica e alquimia.",
+                    npcs: [
+                        { role: "Lady", name: "Margaery", desc: "Amada pelo povo, temida pelos rivais." },
+                        { role: "Alquimista", name: "Qyburn", desc: "Um ex-meistre expulso por experimentos antiéticos." }
+                    ],
+                    secret: "Eles cultivam a 'Estranguladora', a planta usada para criar o veneno que matou o Rei."
+                },
+                {
+                    name: "Casa Hightower",
+                    sigil: "Torre Branca",
+                    motto: "Nós Iluminamos",
+                    desc: "Guardiões do conhecimento, da religião e da história antiga.",
+                    icon: "landmark",
+                    history: "A sede da Fé e da Cidadela. Os Hightower guardam a maior biblioteca do mundo conhecido. São conservadores e religiosos, opondo-se a qualquer magia.",
+                    npcs: [
+                        { role: "Lorde", name: "Leyton", desc: "Não desce de sua torre há uma década." },
+                        { role: "Septão", name: "Alto Pardal", desc: "Líder religioso fanático que ganha poder na cidade." }
+                    ],
+                    secret: "Eles sabem como parar a Podridão, mas a cura exige o sacrifício da magia no mundo, algo que eles desejam ardentemente."
+                }
+            ],
+            wild: [
+                {
+                    name: "Casa Ironwood",
+                    sigil: "Árvore de Ferro",
+                    motto: "Inquebrável",
+                    desc: "Ferreiros lendários e construtores de armas de cerco.",
+                    icon: "hammer",
+                    history: "Vivem nas florestas de árvores de ferro, uma madeira tão dura quanto aço. Fornecem escudos e armas de cerco para todo o reino. São teimosos e resistentes.",
+                    npcs: [
+                        { role: "Lorde", name: "Gregor Ironwood", desc: "Um homem que parece feito de carvalho." },
+                        { role: "Ferreiro", name: "Gendry", desc: "Dizem ter sangue real, mas prefere o martelo." }
+                    ],
+                    secret: "Eles descobriram como fundir o minério da Podridão em armas que causam necrose, vendendo-as para o maior lance."
+                },
+                {
+                    name: "Casa Crow",
+                    sigil: "Bando de Corvos",
+                    motto: "Muitos Olhos",
+                    desc: "Mensageiros rápidos e uma rede de informações descentralizada.",
+                    icon: "mail",
+                    history: "Nômades que viajam em caravanas. Eles levam notícias, cartas e boatos. Ninguém presta atenção neles, o que os torna os espiões perfeitos.",
+                    npcs: [
+                        { role: "Líder", name: "Mance", desc: "Um ex-patrulheiro que uniu os clãs nômades." },
+                        { role: "Vidente", name: "Corvo de Três Olhos", desc: "Um eremita que vive com o clã." }
+                    ],
+                    secret: "Eles estão ajudando escravos a fugir das minas infectadas através de rotas secretas."
+                },
+                {
+                    name: "Casa Bleak",
+                    sigil: "Montanha Partida",
+                    motto: "A Fenda Separa",
+                    desc: "Guardiões brutais das passagens montanhosas.",
+                    icon: "mountain-snow",
+                    history: "Guardam a única passagem segura através das Montanhas da Lua. Cobram pedágios extorsivos. São bandidos glorificados com títulos de nobreza.",
+                    npcs: [
+                        { role: "Lorde", name: "Bronn", desc: "Um mercenário que subiu na vida matando os inimigos certos." },
+                        { role: "Capitão", name: "Shagga", desc: "Líder dos clãs da montanha, aliado temporário." }
+                    ],
+                    secret: "Eles roubaram a caravana real com o dote da princesa desaparecida e o esconderam nas montanhas."
+                },
+                {
+                    name: "Casa Fang",
+                    sigil: "Víbora Enrolada",
+                    motto: "O Beijo Rápido",
+                    desc: "Guerreiros de emboscada que usam táticas sujas.",
+                    icon: "zap",
+                    history: "Mestres em venenos e armadilhas. Vivem nos pântanos da fronteira. Seus inimigos geralmente morrem de 'febre' antes mesmo da batalha começar.",
+                    npcs: [
+                        { role: "Lorde", name: "Oberyn", desc: "Conhecido como a Víbora Vermelha. Letal e hedonista." },
+                        { role: "Bastarda", name: "Ellaria", desc: "Especialista em venenos exóticos." }
+                    ],
+                    secret: "Eles têm um antídoto temporário para a Podridão, mas o usam para chantagear lordes infectados."
+                },
+                {
+                    name: "Casa Storm",
+                    sigil: "Raio Roxo",
+                    motto: "A Fúria Desce",
+                    desc: "Fanáticos religiosos com superstições antigas.",
+                    icon: "cloud-lightning",
+                    history: "Adoram o Deus da Tempestade. Acreditam que a Podridão é uma punição divina e que apenas o sacrifício e a penitência podem salvar o reino.",
+                    npcs: [
+                        { role: "Sacerdote", name: "Aeron", desc: "Bebe água do mar e prega o fim dos tempos." },
+                        { role: "Guerreira", name: "Yara", desc: "Lidera ataques suicidas contra os 'infiéis'." }
+                    ],
+                    secret: "Eles estão planejando invocar uma tempestade mágica massiva para 'lavar' o reino, o que pode destruir cidades inteiras."
+                }
+            ]
+        };
+
+        // Render House Cards
+        function renderHouses(region, elementId) {
+            const container = document.getElementById(elementId);
+            container.innerHTML = houses[region].map((house, index) => `
+                <div class="house-card p-6 relative overflow-hidden cursor-pointer group" onclick="openModal('${region}', ${index})">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="${house.icon}" class="w-24 h-24"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex items-center mb-4">
+                            <div class="p-3 bg-gray-800 text-white rounded-full mr-4 shadow-md group-hover:bg-red-900 transition-colors">
+                                <i data-lucide="${house.icon}"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-xl uppercase cinzel text-gray-900 group-hover:text-red-900 transition-colors">${house.name}</h3>
+                                <p class="text-xs font-bold text-red-800 italic">"${house.motto}"</p>
+                            </div>
+                        </div>
+                        <div class="w-full h-px bg-gray-400/50 mb-3"></div>
+                        <p class="text-sm text-gray-800 leading-relaxed font-medium">${house.desc}</p>
+                        <div class="mt-4 text-xs font-bold text-gray-600 uppercase tracking-wider flex items-center">
+                            <i data-lucide="shield" class="w-3 h-3 mr-1"></i> Brasão: ${house.sigil}
+                        </div>
+                        <div class="mt-2 text-[10px] text-gray-500 text-right italic opacity-0 group-hover:opacity-100 transition-opacity">
+                            Clique para ver detalhes
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal Logic
+        function openModal(region, index) {
+            const house = houses[region][index];
+            const modalBody = document.getElementById('modal-body');
+
+            modalBody.innerHTML = `
+                <div class="text-center mb-8">
+                    <i data-lucide="${house.icon}" class="w-16 h-16 mx-auto mb-4 text-red-900"></i>
+                    <h2 class="text-4xl font-black cinzel text-gray-900 uppercase mb-2">${house.name}</h2>
+                    <p class="text-xl italic text-red-800 font-serif">"${house.motto}"</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold cinzel border-b-2 border-gray-300 mb-4 pb-2">História</h3>
+                        <p class="text-gray-800 leading-relaxed text-justify">${house.history}</p>
+                        
+                        <h3 class="text-xl font-bold cinzel border-b-2 border-gray-300 mt-8 mb-4 pb-2">Brasão & Lema</h3>
+                        <p class="text-sm text-gray-700"><strong>Brasão:</strong> ${house.sigil}</p>
+                        <p class="text-sm text-gray-700"><strong>Descrição:</strong> ${house.desc}</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-bold cinzel border-b-2 border-gray-300 mb-4 pb-2">Figuras Notáveis</h3>
+                            <ul class="space-y-3">
+                                ${house.npcs.map(npc => `
+                                    <li class="bg-white/50 p-3 rounded border border-gray-300">
+                                        <span class="font-bold text-red-900 text-sm uppercase block">${npc.role}</span>
+                                        <span class="font-bold text-gray-900">${npc.name}</span>
+                                        <p class="text-xs text-gray-600 mt-1 italic">${npc.desc}</p>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+
+                        <div class="p-4 bg-red-900/10 border-2 border-dashed border-red-900 rounded relative group cursor-help">
+                            <div class="absolute -top-3 right-4 bg-[#f0e6d2] px-2 text-xs font-bold text-red-900 uppercase tracking-widest">DM Only</div>
+                            <h4 class="font-bold text-red-900 mb-2 flex items-center"><i data-lucide="lock" class="w-4 h-4 mr-2"></i> Segredo da Casa</h4>
+                            <p class="text-sm text-gray-800 blur-sm group-hover:blur-none transition-all duration-300">
+                                ${house.secret}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('house-modal').classList.add('open');
+            lucide.createIcons();
+        }
+
+        function closeHouseModal(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('house-modal').classList.remove('open');
+        }
+
+        // Classes Data
+        const classes = [
+            {
+                name: "Guerreiro",
+                subtitle: "Cavaleiro / Homem de Armas",
+                icon: "sword",
+                desc: "Mestres do combate marcial e da disciplina militar.",
+                overview: "O Guerreiro é a espinha dorsal de qualquer exército em Aethelgard. Seja um cavaleiro nobre em armadura completa ou um mercenário veterano, eles dominam todas as formas de combate corpo a corpo.",
+                adjustments: "Sem subclasses mágicas (Eldritch Knight). Foco em Battle Master e Champion. Armaduras pesadas são símbolos de status e poder.",
+                subclasses: [
+                    { name: "Battle Master", desc: "Táticas avançadas e manobras de combate. Ideal para comandantes." },
+                    { name: "Champion", desc: "Pura força bruta e resistência. O guerreiro clássico." }
+                ],
+                tips: "Use armaduras pesadas para intimidar inimigos. Aprenda manobras para controlar o campo de batalha."
+            },
+            {
+                name: "Ladino",
+                subtitle: "Espião / Assassino",
+                icon: "user-cog",
+                desc: "Especialistas em furtividade, venenos e intriga política.",
+                overview: "Em um mundo onde uma adaga nas costas é mais eficaz que mil espadas, o Ladino prospera. Eles são espiões, assassinos, ladrões e mestres da manipulação.",
+                adjustments: "Sem Arcane Trickster. O arquétipo Mastermind é ideal para intriga política. Venenos são ferramentas essenciais e facilmente acessíveis.",
+                subclasses: [
+                    { name: "Assassin", desc: "Mestre do assassinato silencioso e venenos letais." },
+                    { name: "Mastermind", desc: "Manipulador político e mestre da intriga social." },
+                    { name: "Thief", desc: "Ladrão clássico, especialista em infiltração." }
+                ],
+                tips: "Invista em venenos e ferramentas de ladrão. Use disfarces e informantes para obter vantagem."
+            },
+            {
+                name: "Bárbaro",
+                subtitle: "Selvagem / Berserker",
+                icon: "axe",
+                desc: "Guerreiros ferozes movidos por fúria e tradição.",
+                overview: "Vindos das terras selvagens, os Bárbaros são guerreiros temíveis que canalizam sua raiva em combate. Sua fúria não é mágica, mas pura adrenalina e força de vontade.",
+                adjustments: "A Fúria é adrenalina, não magia. Totem Warrior é permitido apenas como tradição cultural (sem voo/magia visual). Zealot para fanáticos religiosos.",
+                subclasses: [
+                    { name: "Berserker", desc: "Fúria descontrolada e poder destrutivo." },
+                    { name: "Totem Warrior", desc: "Conexão espiritual com animais totêmicos (sem magia)." },
+                    { name: "Zealot", desc: "Fanático religioso movido por fé inabalável." }
+                ],
+                tips: "Use a fúria estrategicamente. Sua resistência a dano é vital em combates prolongados."
+            },
+            {
+                name: "Bardo",
+                subtitle: "Meistre / Diplomata",
+                icon: "book-open",
+                desc: "Mestres da palavra, conhecimento e combate social.",
+                overview: "Em Aethelgard, o Bardo não canta canções mágicas, mas domina a arte da persuasão, intimidação e manipulação. São conselheiros, diplomatas e mestres do Combate Social.",
+                adjustments: "Grande Alteração: Sem Magia. Substitui feitiços por manobras de Combate Social e Conhecimento. 'Song of Rest' torna-se 'Medicina Avançada'. A classe mais poderosa na corte.",
+                subclasses: [
+                    { name: "Lore", desc: "Conhecimento vasto e habilidades de suporte." },
+                    { name: "Valor", desc: "Bardo guerreiro, inspirador de tropas." }
+                ],
+                tips: "Domine o Combate Social. Seus ataques verbais podem destruir reputações e quebrar alianças."
+            },
+            {
+                name: "Patrulheiro",
+                subtitle: "Caçador / Batedor",
+                icon: "compass",
+                desc: "Sobrevivencialistas e rastreadores experientes.",
+                overview: "Os Patrulheiros são essenciais para sobreviver nas terras selvagens de Aethelgard. Eles conhecem cada trilha, cada planta medicinal e cada predador.",
+                adjustments: "Grande Alteração: Sem Magia. Ganha habilidade de criar cataplasmas (Cura não-mágica) e manobras táticas. Essencial para guiar exércitos e sobreviver ao inverno.",
+                subclasses: [
+                    { name: "Hunter", desc: "Caçador especializado em eliminar ameaças." },
+                    { name: "Beast Master", desc: "Companheiro animal treinado (sem vínculo mágico)." }
+                ],
+                tips: "Use o terreno a seu favor. Seus cataplasmas podem salvar vidas quando não há clérigos."
+            },
+            {
+                name: "Paladino",
+                subtitle: "Lorde / Guarda Real",
+                icon: "shield",
+                desc: "Líderes militares e símbolos de honra.",
+                overview: "O Paladino em Aethelgard não é um guerreiro sagrado, mas um líder militar inspirador. Sua presença no campo de batalha eleva o moral e quebra o inimigo.",
+                adjustments: "Grande Alteração: Sem Magia. 'Lay on Hands' vira 'Inspirar Vigor' (PV Temporários). 'Smite' vira 'Golpe Brutal' (Dano puro de força). Auras viram Liderança Militar.",
+                subclasses: [
+                    { name: "Devotion", desc: "Líder honrado e inspirador de tropas." },
+                    { name: "Vengeance", desc: "Caçador implacável de inimigos jurados." }
+                ],
+                tips: "Lidere pelo exemplo. Suas auras de liderança podem virar batalhas."
+            }
+        ];
+
+        // Render Class Cards
+        function renderClasses() {
+            const container = document.getElementById('grid-classes');
+            container.innerHTML = classes.map((cls, index) => `
+                <div class="house-card p-6 relative overflow-hidden cursor-pointer group" onclick="openClassModal(${index})">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="${cls.icon}" class="w-24 h-24"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex items-center mb-4">
+                            <div class="p-3 bg-gray-800 text-white rounded-full mr-4 shadow-md group-hover:bg-red-900 transition-colors">
+                                <i data-lucide="${cls.icon}"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-xl uppercase cinzel text-gray-900 group-hover:text-red-900 transition-colors">${cls.name}</h3>
+                                <p class="text-xs font-bold text-gray-600 italic">${cls.subtitle}</p>
+                            </div>
+                        </div>
+                        <div class="w-full h-px bg-gray-400/50 mb-3"></div>
+                        <p class="text-sm text-gray-800 leading-relaxed font-medium">${cls.desc}</p>
+                        <div class="mt-2 text-[10px] text-gray-500 text-right italic opacity-0 group-hover:opacity-100 transition-opacity">
+                            Clique para ver detalhes
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // Open Class Modal
+        function openClassModal(index) {
+            const cls = classes[index];
+            const modalBody = document.getElementById('class-modal-body');
+
+            modalBody.innerHTML = `
+                <div class="text-center mb-8">
+                    <i data-lucide="${cls.icon}" class="w-16 h-16 mx-auto mb-4 text-red-900"></i>
+                    <h2 class="text-4xl font-black cinzel text-gray-900 uppercase mb-2">${cls.name}</h2>
+                    <p class="text-xl italic text-gray-600 font-serif">${cls.subtitle}</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold cinzel border-b-2 border-gray-300 mb-4 pb-2">Visão Geral</h3>
+                        <p class="text-gray-800 leading-relaxed text-justify mb-6">${cls.overview}</p>
+                        
+                        <h3 class="text-xl font-bold cinzel border-b-2 border-gray-300 mb-4 pb-2">Ajustes para Aethelgard</h3>
+                        <p class="text-sm text-gray-700 leading-relaxed">${cls.adjustments}</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-bold cinzel border-b-2 border-gray-300 mb-4 pb-2">Subclasses Permitidas</h3>
+                            <ul class="space-y-3">
+                                ${cls.subclasses.map(sub => `
+                                    <li class="bg-white/50 p-3 rounded border border-gray-300">
+                                        <span class="font-bold text-red-900 text-sm uppercase block">${sub.name}</span>
+                                        <p class="text-xs text-gray-600 mt-1">${sub.desc}</p>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+
+                        <div class="p-4 bg-yellow-900/10 border-2 border-dashed border-yellow-700 rounded">
+                            <h4 class="font-bold text-yellow-900 mb-2 flex items-center"><i data-lucide="lightbulb" class="w-4 h-4 mr-2"></i> Dicas de Jogo</h4>
+                            <p class="text-sm text-gray-800">${cls.tips}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('class-modal').classList.add('open');
+            lucide.createIcons();
+        }
+
+        // Close Class Modal
+        function closeClassModal(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('class-modal').classList.remove('open');
+        }
+
+        // Rituals Data
+        const rituals = [
+            // BLOOD MAGIC
+            {
+                name: "Vínculo de Sangue",
+                category: "Magia de Sangue",
+                categoryColor: "red",
+                icon: "droplet",
+                desc: "Criar conexão telepática temporária através de sangue compartilhado.",
+                time: "30 minutos",
+                components: "Sangue do conjurador e do alvo (1d4 HP cada), cálice de prata",
+                cost: "1d4 HP + 1 nível de Exaustão",
+                effect: "Você e o alvo podem se comunicar telepaticamente por 24 horas, independente da distância. Vocês sentem as emoções um do outro.",
+                risk: "Se um dos vinculados morrer, o outro deve fazer um teste de CON CD 15 ou cair inconsciente por 1d4 horas.",
+                secret: "O vínculo pode ser usado para localizar o alvo, mas também permite que ele sinta quando você está mentindo."
+            },
+            {
+                name: "Cura Proibida",
+                category: "Magia de Sangue",
+                categoryColor: "red",
+                icon: "heart-pulse",
+                desc: "Curar ferimentos graves usando sangue como catalisador.",
+                time: "10 minutos",
+                components: "Sangue fresco (seu ou de outro), ervas raras (50 PO)",
+                cost: "2d6 HP do conjurador",
+                effect: "Cura 4d8 + modificador de Sabedoria HP em uma criatura. Remove 1 nível de Exaustão.",
+                risk: "Se o conjurador ficar abaixo de 10 HP durante o ritual, ele deve fazer um teste de CON CD 13 ou cair inconsciente.",
+                secret: "Usar sangue de outra pessoa reduz o custo para 1d6 HP, mas a vítima deve estar disposta ou inconsciente."
+            },
+            {
+                name: "Maldição de Sangue",
+                category: "Magia de Sangue",
+                categoryColor: "red",
+                icon: "skull",
+                desc: "Amaldiçoar uma linhagem familiar inteira.",
+                time: "1 hora",
+                components: "Sangue do alvo, boneco de cera, agulhas de ferro negro (100 PO)",
+                cost: "3d6 HP + 2 níveis de Exaustão",
+                effect: "O alvo e todos os seus descendentes diretos sofrem desvantagem em um tipo de teste (escolhido no ritual) até que a maldição seja quebrada.",
+                risk: "Falha crítica no teste de Arcana (CD 15) faz a maldição refletir no conjurador.",
+                secret: "A maldição pode ser quebrada apenas com o sangue do conjurador original ou sua morte."
+            },
+            // DEATH MAGIC
+            {
+                name: "Sussurros dos Mortos",
+                category: "Magia da Morte",
+                categoryColor: "purple",
+                icon: "ghost",
+                desc: "Comunicar com o espírito de um morto recente.",
+                time: "20 minutos",
+                components: "Crânio humano, velas negras, cinzas de morto (25 PO)",
+                cost: "1 nível de Exaustão",
+                effect: "Você pode fazer até 5 perguntas ao espírito de alguém que morreu nos últimos 7 dias. O espírito responde com verdades, mas pode ser evasivo.",
+                risk: "Espíritos vingativos podem tentar possuir o conjurador (teste de SAB CD 14 para resistir).",
+                secret: "Se o morto foi assassinado, seu espírito pode revelar o assassino, mas isso atrai a atenção de entidades sombrias."
+            },
+            {
+                name: "Servo Cadavérico",
+                category: "Magia da Morte",
+                categoryColor: "purple",
+                icon: "user-x",
+                desc: "Animar um cadáver para servir como servo temporário.",
+                time: "1 hora",
+                components: "Cadáver fresco (morto há menos de 3 dias), sal negro, sangue (1d6 HP)",
+                cost: "1d6 HP + 2 níveis de Exaustão",
+                effect: "O cadáver se levanta como um zumbi sob seu controle por 24 horas. Ele obedece comandos simples e tem as estatísticas de um Zombie padrão.",
+                risk: "Se o controle falhar (teste de Arcana CD 13 a cada 6 horas), o zumbi ataca a criatura viva mais próxima.",
+                secret: "O ritual deixa uma marca necrótica no conjurador. Clérigos e paladinos podem detectá-la."
+            },
+            {
+                name: "Presságio Fúnebre",
+                category: "Magia da Morte",
+                categoryColor: "purple",
+                icon: "eye",
+                desc: "Ver o momento da própria morte ou de outro.",
+                time: "30 minutos",
+                components: "Espelho de prata, sangue do alvo, água de rio que toca um cemitério",
+                cost: "2 níveis de Exaustão + 1d4 de dano psíquico permanente",
+                effect: "Você vê uma visão do momento da morte do alvo (pode ser você mesmo). A visão mostra o local, a causa e aproximadamente quando (dias, meses ou anos).",
+                risk: "Ver a própria morte pode causar loucura. Faça um teste de SAB CD 16 ou ganhe uma fobia permanente relacionada à visão.",
+                secret: "A visão mostra apenas UMA possível morte. O futuro pode ser mudado, mas a visão sempre assombra o conjurador."
+            },
+            // EARTH MAGIC
+            {
+                name: "Círculo de Proteção",
+                category: "Magia da Terra",
+                categoryColor: "green",
+                icon: "shield",
+                desc: "Criar uma barreira mágica que repele intrusos.",
+                time: "1 hora",
+                components: "Pedras de rio, sal, sangue (1d4 HP), círculo de 3m de diâmetro",
+                cost: "1d4 HP + 1 nível de Exaustão",
+                effect: "Criaturas hostis não podem entrar no círculo sem fazer um teste de SAB CD 15. O círculo dura 8 horas ou até ser quebrado fisicamente.",
+                risk: "Se o círculo for quebrado enquanto alguém está dentro, todos dentro sofrem 2d6 de dano psíquico.",
+                secret: "O círculo também impede que quem está dentro saia sem quebrar a proteção."
+            },
+            {
+                name: "Raízes Famintas",
+                category: "Magia da Terra",
+                categoryColor: "green",
+                icon: "sprout",
+                desc: "Fazer plantas atacarem inimigos.",
+                time: "10 minutos",
+                components: "Sementes, terra fértil, sangue de animal (ou humano)",
+                cost: "1d6 HP + 1 nível de Exaustão",
+                effect: "Raízes e vinhas brotam do chão em uma área de 6m de raio. Criaturas na área devem fazer um teste de DES CD 14 ou ficam Restrained. As plantas duram 1 minuto.",
+                risk: "As plantas não distinguem aliados de inimigos. Todos na área são afetados.",
+                secret: "Se sangue humano for usado, as plantas ganham espinhos venenosos (1d4 de dano adicional por turno)."
+            },
+            {
+                name: "Tremor Menor",
+                category: "Magia da Terra",
+                categoryColor: "green",
+                icon: "mountain",
+                desc: "Causar um pequeno terremoto localizado.",
+                time: "20 minutos",
+                components: "Pedra de uma montanha, pólvora, sangue (2d4 HP)",
+                cost: "2d4 HP + 2 níveis de Exaustão",
+                effect: "Causa um terremoto em uma área de 15m de raio. Criaturas devem fazer um teste de DES CD 15 ou caem prone. Estruturas frágeis podem desabar.",
+                risk: "O tremor pode atrair atenção indesejada ou causar deslizamentos de terra.",
+                secret: "O ritual deixa fissuras no chão que podem revelar túneis ou câmaras ocultas."
+            },
+            // FIRE MAGIC
+            {
+                name: "Chama Eterna",
+                category: "Magia do Fogo",
+                categoryColor: "orange",
+                icon: "flame",
+                desc: "Criar uma chama que nunca se apaga.",
+                time: "30 minutos",
+                components: "Óleo consagrado, madeira de árvore sagrada, sangue (1d6 HP)",
+                cost: "1d6 HP + 1 nível de Exaustão",
+                effect: "Uma chama surge e queima indefinidamente sem consumir combustível. Ela fornece luz como uma tocha e pode ser usada para cozinhar ou aquecer.",
+                risk: "A chama não pode ser apagada por meios normais. Apenas magia ou o conjurador podem extingui-la.",
+                secret: "A chama é ligada à força vital do conjurador. Se ele morrer, a chama se apaga."
+            },
+            {
+                name: "Purificação Ardente",
+                category: "Magia do Fogo",
+                categoryColor: "orange",
+                icon: "zap",
+                desc: "Queimar maldições, doenças e impurezas.",
+                time: "15 minutos",
+                components: "Fogo sagrado, ervas purificadoras (30 PO), sangue (1d4 HP)",
+                cost: "1d4 HP + 1 nível de Exaustão",
+                effect: "Remove uma maldição, doença ou veneno de uma criatura. O alvo sofre 2d6 de dano de fogo durante o processo.",
+                risk: "Se o alvo tiver menos de 10 HP, ele pode morrer durante a purificação.",
+                secret: "O ritual também queima memórias recentes do alvo (últimas 24 horas ficam nebulosas)."
+            },
+            {
+                name: "Visão nas Chamas",
+                category: "Magia do Fogo",
+                categoryColor: "orange",
+                icon: "eye",
+                desc: "Usar o fogo para espionar locais distantes.",
+                time: "20 minutos",
+                components: "Fogueira, incenso raro (50 PO), objeto pessoal do alvo ou local",
+                cost: "1 nível de Exaustão",
+                effect: "Você pode ver através de qualquer fogo a até 1,6 km de distância por 10 minutos. Você vê e ouve o que acontece ao redor do fogo escolhido.",
+                risk: "Criaturas sensíveis à magia podem sentir que estão sendo observadas (teste de Percepção CD 16).",
+                secret: "Se houver um mago poderoso no local observado, ele pode reverter a visão e ver VOCÊ através do fogo."
+            }
+        ];
+
+        // Get category color class
+        function getCategoryColorClass(color) {
+            const colors = {
+                red: 'border-red-900 bg-red-900/5',
+                purple: 'border-purple-900 bg-purple-900/5',
+                green: 'border-green-900 bg-green-900/5',
+                orange: 'border-orange-900 bg-orange-900/5'
+            };
+            return colors[color] || 'border-gray-900 bg-gray-900/5';
+        }
+
+        // Render Ritual Cards
+        function renderRituals() {
+            const container = document.getElementById('grid-rituals');
+            container.innerHTML = rituals.map((ritual, index) => `
+                <div class="house-card p-6 relative overflow-hidden cursor-pointer group border-l-4 ${getCategoryColorClass(ritual.categoryColor)}" onclick="openRitualModal(${index})">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="${ritual.icon}" class="w-24 h-24"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex items-center mb-3">
+                            <div class="p-3 bg-gray-800 text-white rounded-full mr-4 shadow-md group-hover:bg-red-900 transition-colors">
+                                <i data-lucide="${ritual.icon}"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-lg uppercase cinzel text-gray-900 group-hover:text-red-900 transition-colors">${ritual.name}</h3>
+                                <p class="text-xs font-bold text-${ritual.categoryColor}-800 uppercase tracking-wider">${ritual.category}</p>
+                            </div>
+                        </div>
+                        <div class="w-full h-px bg-gray-400/50 mb-3"></div>
+                        <p class="text-sm text-gray-800 leading-relaxed">${ritual.desc}</p>
+                        <div class="mt-3 flex items-center text-xs text-gray-600">
+                            <i data-lucide="clock" class="w-3 h-3 mr-1"></i>
+                            <span>${ritual.time}</span>
+                        </div>
+                        <div class="mt-2 text-[10px] text-gray-500 text-right italic opacity-0 group-hover:opacity-100 transition-opacity">
+                            Clique para ver detalhes
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // Open Ritual Modal
+        function openRitualModal(index) {
+            const ritual = rituals[index];
+            const modalBody = document.getElementById('ritual-modal-body');
+
+            modalBody.innerHTML = `
+                <div class="text-center mb-8">
+                    <i data-lucide="${ritual.icon}" class="w-16 h-16 mx-auto mb-4 text-red-900"></i>
+                    <h2 class="text-4xl font-black cinzel text-gray-900 uppercase mb-2">${ritual.name}</h2>
+                    <p class="text-lg font-bold text-${ritual.categoryColor}-800 uppercase tracking-wider">${ritual.category}</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-bold cinzel border-b-2 border-gray-300 mb-3 pb-2">Descrição</h3>
+                            <p class="text-gray-800 leading-relaxed">${ritual.desc}</p>
+                        </div>
+
+                        <div class="bg-white/50 p-4 rounded border border-gray-300">
+                            <h4 class="font-bold text-sm uppercase tracking-wider mb-2 flex items-center"><i data-lucide="clock" class="w-4 h-4 mr-2"></i>Tempo de Conjuração</h4>
+                            <p class="text-sm text-gray-700">${ritual.time}</p>
+                        </div>
+
+                        <div class="bg-white/50 p-4 rounded border border-gray-300">
+                            <h4 class="font-bold text-sm uppercase tracking-wider mb-2 flex items-center"><i data-lucide="package" class="w-4 h-4 mr-2"></i>Componentes</h4>
+                            <p class="text-sm text-gray-700">${ritual.components}</p>
+                        </div>
+
+                        <div class="bg-red-900/10 p-4 rounded border-2 border-red-900">
+                            <h4 class="font-bold text-sm uppercase tracking-wider mb-2 text-red-900 flex items-center"><i data-lucide="heart-crack" class="w-4 h-4 mr-2"></i>Custo</h4>
+                            <p class="text-sm text-gray-800 font-semibold">${ritual.cost}</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-green-900/10 p-4 rounded border border-green-700">
+                            <h4 class="font-bold text-sm uppercase tracking-wider mb-2 text-green-900 flex items-center"><i data-lucide="sparkles" class="w-4 h-4 mr-2"></i>Efeito</h4>
+                            <p class="text-sm text-gray-800">${ritual.effect}</p>
+                        </div>
+
+                        <div class="bg-orange-900/10 p-4 rounded border border-orange-700">
+                            <h4 class="font-bold text-sm uppercase tracking-wider mb-2 text-orange-900 flex items-center"><i data-lucide="alert-triangle" class="w-4 h-4 mr-2"></i>Risco</h4>
+                            <p class="text-sm text-gray-800">${ritual.risk}</p>
+                        </div>
+
+                        <div class="p-4 bg-red-900/10 border-2 border-dashed border-red-900 rounded relative group cursor-help">
+                            <div class="absolute -top-3 right-4 bg-[#f0e6d2] px-2 text-xs font-bold text-red-900 uppercase tracking-widest">DM Only</div>
+                            <h4 class="font-bold text-red-900 mb-2 flex items-center"><i data-lucide="lock" class="w-4 h-4 mr-2"></i>Segredo do Ritual</h4>
+                            <p class="text-sm text-gray-800 blur-sm group-hover:blur-none transition-all duration-300">
+                                ${ritual.secret}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('ritual-modal').classList.add('open');
+            lucide.createIcons();
+        }
+
+        // Close Ritual Modal
+        function closeRitualModal(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('ritual-modal').classList.remove('open');
+        }
+
+        // Equipment Data
+        const equipment = [
+            // WEAPONS
+            { name: "Lâmina Valiriana", category: "weapons", rarity: "legendary", cost: 5000, icon: "sword", desc: "Espada forjada em aço valiriano, nunca perde o fio.", properties: "+2 de dano, ignora resistência de armadura não-mágica", lore: "Apenas 12 lâminas valirianas existem em Aethelgard. Esta pertenceu a Casa Targaryen antes da Queda.", secret: "A lâmina brilha levemente perto de magia." },
+            { name: "Arco Longo de Teixo", category: "weapons", rarity: "rare", cost: 300, icon: "target", desc: "Arco de madeira rara com alcance excepcional.", properties: "Alcance 180/600, +1 de dano", lore: "Feito de teixo das Florestas Antigas. Leva 10 anos para secar a madeira corretamente.", secret: "Flechas disparadas deste arco nunca erram alvos a menos de 30m." },
+            { name: "Martelo de Guerra Anão", category: "weapons", rarity: "very_rare", cost: 800, icon: "hammer", desc: "Martelo pesado forjado por anões das montanhas.", properties: "2d8 de dano, Pesado, Duas Mãos, +2 contra construções", lore: "Forjado nas Forjas Profundas. Cada martelo leva 100 dias para ser completado.", secret: "O martelo pode quebrar portas e muros com um único golpe crítico." },
+
+            // ARMOR
+            { name: "Armadura Completa de Casa Nobre", category: "armor", rarity: "rare", cost: 2000, icon: "shield", desc: "Armadura de placas com brasão heráldico gravado.", properties: "CA 18, Desvantagem em Furtividade, +1 em testes de Intimidação", lore: "Usar armadura de uma Casa é um símbolo de status. Roubar uma é crime capital.", secret: "A armadura tem compartimentos secretos para veneno ou mensagens." },
+            { name: "Couro de Dragão Marinho", category: "armor", rarity: "very_rare", cost: 1200, icon: "waves", desc: "Armadura leve feita de escamas de dragão marinho.", properties: "CA 14 + DES, Resistência a dano de fogo e frio", lore: "Dragões marinhos são raros e mortais. Apenas os Velaryon possuem a técnica de curtir suas escamas.", secret: "A armadura permite respirar debaixo d'água por até 10 minutos." },
+            { name: "Cota de Malha Reforçada", category: "armor", rarity: "uncommon", cost: 150, icon: "shield-check", desc: "Cota de malha com placas de aço nos pontos vitais.", properties: "CA 15, sem desvantagem em Furtividade", lore: "Armadura padrão de soldados profissionais. Confiável e durável.", secret: "Nenhum." },
+
+            // TOOLS
+            { name: "Kit de Venenos do Assassino", category: "tools", rarity: "rare", cost: 500, icon: "flask-round", desc: "Ferramentas completas para criar e aplicar venenos.", properties: "Vantagem em testes para criar venenos, +5 doses de veneno básico", lore: "Vendido apenas no mercado negro. Possuir um é evidência de intenção criminosa.", secret: "O kit inclui um antídoto universal de emergência (1 uso)." },
+            { name: "Ferramentas de Ladrão Mestras", category: "tools", rarity: "uncommon", cost: 200, icon: "key", desc: "Set premium de ganzuas e ferramentas.", properties: "Vantagem em testes de Arrombamento, pode abrir fechaduras mágicas simples", lore: "Forjadas pela Guilda dos Ladrões de Porto Real. Cada set tem uma marca única.", secret: "As ferramentas têm uma ganzua oculta que nunca quebra." },
+            { name: "Kit Médico de Campo", category: "tools", rarity: "uncommon", cost: 100, icon: "heart-pulse", desc: "Suprimentos avançados de cura.", properties: "10 usos, cura 1d6+4 HP, remove 1 nível de Exaustão", lore: "Usado por médicos de campo em guerras. Contém ervas raras e instrumentos cirúrgicos.", secret: "Pode estabilizar alguém à beira da morte sem teste." },
+
+            // POISONS
+            { name: "Lágrimas de Viúva", category: "poisons", rarity: "very_rare", cost: 1000, icon: "droplet", desc: "Veneno letal, incolor e inodoro.", properties: "CON CD 17 ou 10d6 de dano de veneno, metade em sucesso", lore: "O veneno favorito de assassinos nobres. Mata em minutos sem deixar rastro.", secret: "Pode ser detectado apenas por um mestre alquimista (CD 20)." },
+            { name: "Sussurro do Estrangulador", category: "poisons", rarity: "rare", cost: 400, icon: "wind", desc: "Veneno que paralisa a vítima.", properties: "CON CD 15 ou Paralisia por 1 hora", lore: "Extraído de uma planta rara que cresce apenas em pântanos amaldiçoados.", secret: "A vítima permanece consciente e pode ver/ouvir tudo." },
+            { name: "Antídoto Universal", category: "poisons", rarity: "rare", cost: 300, icon: "heart", desc: "Cura a maioria dos venenos conhecidos.", properties: "Remove qualquer veneno de CD 18 ou menor", lore: "Criado por alquimistas da Cidadela. Extremamente valioso.", secret: "Também cura doenças mágicas de baixo nível." },
+
+            // RARE ITEMS
+            { name: "Vela Eterna", category: "rare", rarity: "rare", cost: 600, icon: "candle", desc: "Vela que nunca se apaga.", properties: "Luz como tocha, nunca consome cera, não pode ser apagada por vento/água", lore: "Criada através de ritual de fogo. Apenas 50 existem em todo o reino.", secret: "A chama revela escritas invisíveis e ilusões simples." },
+            { name: "Anel de Linhagem", category: "rare", rarity: "very_rare", cost: 2000, icon: "gem", desc: "Anel de sinete de casa nobre extinta.", properties: "Prova de nobreza, +2 em testes de Persuasão com nobres", lore: "Pertenceu à Casa Blackfyre, extinta há 200 anos. Quem o possui pode reivindicar terras perdidas.", secret: "O anel permite comandar servos fantasmas da casa extinta (1x por semana)." },
+            { name: "Mapa de Ruínas Antigas", category: "rare", rarity: "uncommon", cost: 250, icon: "map", desc: "Mapa que revela localização de tesouro.", properties: "Mostra caminho para ruínas com tesouro (valor 2d6 x 100 PO)", lore: "Criado por exploradores antigos. Muitos mapas são falsos ou armadilhas.", secret: "Este mapa é verdadeiro e leva a uma tumba de rei antigo." },
+            { name: "Cálice de Prata Consagrado", category: "rare", rarity: "rare", cost: 400, icon: "wine", desc: "Cálice que detecta veneno.", properties: "Líquido envenenado fica negro ao tocar o cálice", lore: "Usado por reis paranóicos. Salvou inúmeras vidas ao longo dos séculos.", secret: "O cálice também purifica água suja, tornando-a potável." }
+        ];
+
+        let currentCategory = 'all';
+
+        // Get rarity color
+        function getRarityColor(rarity) {
+            const colors = {
+                common: { border: 'border-gray-600', bg: 'bg-gray-600/10', text: 'text-gray-700' },
+                uncommon: { border: 'border-green-600', bg: 'bg-green-600/10', text: 'text-green-700' },
+                rare: { border: 'border-blue-600', bg: 'bg-blue-600/10', text: 'text-blue-700' },
+                very_rare: { border: 'border-purple-600', bg: 'bg-purple-600/10', text: 'text-purple-700' },
+                legendary: { border: 'border-yellow-600', bg: 'bg-yellow-600/10', text: 'text-yellow-700' }
+            };
+            return colors[rarity] || colors.common;
+        }
+
+        // Get rarity name
+        function getRarityName(rarity) {
+            const names = {
+                common: 'Comum',
+                uncommon: 'Incomum',
+                rare: 'Raro',
+                very_rare: 'Muito Raro',
+                legendary: 'Lendário'
+            };
+            return names[rarity] || 'Comum';
+        }
+
+        // Filter Equipment
+        function filterEquipment(category) {
+            currentCategory = category;
+
+            // Update filter buttons
+            document.querySelectorAll('.equipment-filter').forEach(btn => {
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active', 'bg-red-900', 'text-white');
+                    btn.classList.remove('text-gray-300');
+                } else {
+                    btn.classList.remove('active', 'bg-red-900', 'text-white');
+                    btn.classList.add('text-gray-300');
+                }
+            });
+
+            renderEquipment();
+        }
+
+        // Render Equipment
+        function renderEquipment() {
+            const container = document.getElementById('grid-equipment');
+            const filtered = currentCategory === 'all'
+                ? equipment
+                : equipment.filter(item => item.category === currentCategory);
+
+            container.innerHTML = filtered.map((item, index) => {
+                const rarityColors = getRarityColor(item.rarity);
+                const fullIndex = equipment.indexOf(item);
+
+                return `
+                    <div class="house-card p-5 relative overflow-hidden cursor-pointer group border-l-4 ${rarityColors.border} ${rarityColors.bg}" onclick="openEquipmentModal(${fullIndex})">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <i data-lucide="${item.icon}" class="w-20 h-20"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="flex items-start justify-between mb-3">
+                                <div class="flex items-center flex-1">
+                                    <div class="p-2.5 bg-gray-800 text-white rounded-full mr-3 shadow-md group-hover:bg-red-900 transition-colors">
+                                        <i data-lucide="${item.icon}" class="w-5 h-5"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-bold text-base uppercase cinzel text-gray-900 group-hover:text-red-900 transition-colors leading-tight">${item.name}</h3>
+                                        <p class="text-[10px] font-bold ${rarityColors.text} uppercase tracking-wider">${getRarityName(item.rarity)}</p>
+                                    </div>
+                                </div>
+                                <div class="text-right ml-2">
+                                    <p class="text-xs font-bold text-yellow-700">${item.cost} PO</p>
+                                </div>
+                            </div>
+                            <div class="w-full h-px bg-gray-400/50 mb-2"></div>
+                            <p class="text-xs text-gray-800 leading-relaxed line-clamp-2">${item.desc}</p>
+                            <div class="mt-2 text-[9px] text-gray-500 text-right italic opacity-0 group-hover:opacity-100 transition-opacity">
+                                Clique para detalhes
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        // Open Equipment Modal
+        function openEquipmentModal(index) {
+            const item = equipment[index];
+            const rarityColors = getRarityColor(item.rarity);
+            const modalBody = document.getElementById('equipment-modal-body');
+
+            modalBody.innerHTML = `
+                <div class="text-center mb-8">
+                    <i data-lucide="${item.icon}" class="w-16 h-16 mx-auto mb-4 text-red-900"></i>
+                    <h2 class="text-4xl font-black cinzel text-gray-900 uppercase mb-2">${item.name}</h2>
+                    <p class="text-lg font-bold ${rarityColors.text} uppercase tracking-wider">${getRarityName(item.rarity)}</p>
+                    <p class="text-2xl font-bold text-yellow-700 mt-2">${item.cost} PO</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-bold cinzel border-b-2 border-gray-300 mb-3 pb-2">Descrição</h3>
+                            <p class="text-gray-800 leading-relaxed">${item.desc}</p>
+                        </div>
+
+                        <div class="bg-white/50 p-4 rounded border border-gray-300">
+                            <h4 class="font-bold text-sm uppercase tracking-wider mb-2 flex items-center"><i data-lucide="sparkles" class="w-4 h-4 mr-2"></i>Propriedades</h4>
+                            <p class="text-sm text-gray-700">${item.properties}</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-amber-900/10 p-4 rounded border border-amber-700">
+                            <h4 class="font-bold text-sm uppercase tracking-wider mb-2 text-amber-900 flex items-center"><i data-lucide="book-open" class="w-4 h-4 mr-2"></i>História</h4>
+                            <p class="text-sm text-gray-800">${item.lore}</p>
+                        </div>
+
+                        <div class="p-4 bg-red-900/10 border-2 border-dashed border-red-900 rounded relative group cursor-help">
+                            <div class="absolute -top-3 right-4 bg-[#f0e6d2] px-2 text-xs font-bold text-red-900 uppercase tracking-widest">DM Only</div>
+                            <h4 class="font-bold text-red-900 mb-2 flex items-center"><i data-lucide="lock" class="w-4 h-4 mr-2"></i>Segredo</h4>
+                            <p class="text-sm text-gray-800 blur-sm group-hover:blur-none transition-all duration-300">
+                                ${item.secret}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('equipment-modal').classList.add('open');
+            lucide.createIcons();
+        }
+
+        // Close Equipment Modal
+        function closeEquipmentModal(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('equipment-modal').classList.remove('open');
+        }
+
+        // --- BESTIARY DATA & LOGIC ---
+        const bestiary = [
+            {
+                name: "Cão Infernal",
+                type: "beast",
+                cr: "1",
+                ac: 13,
+                hp: "22 (4d8 + 4)",
+                speed: "15m",
+                stats: "FOR 14 (+2), DES 12 (+1), CON 13 (+1), INT 3 (-4), SAB 12 (+1), CAR 7 (-2)",
+                actions: [
+                    { name: "Mordida", desc: "Ataque Corpo-a-Corpo: +4 para acertar, alcance 1.5m. Dano: 1d6+2 perfurante + 1d6 fogo." },
+                    { name: "Sopro de Fogo (Recarga 5-6)", desc: "Cone de 4.5m. CD 12 Des. Dano: 2d6 fogo (metade se passar)." }
+                ],
+                lore: "Cães de caça corrompidos por rituais de sangue. Seus olhos brilham como brasas e sua saliva ferve ao tocar o chão.",
+                secret: "Eles são cegos e caçam pelo cheiro de medo (Vantagem contra criaturas Frightened)."
+            },
+            {
+                name: "Espectro da Cinza",
+                type: "undead",
+                cr: "3",
+                ac: 12,
+                hp: "45 (6d8 + 18)",
+                speed: "0m, Voo 12m (hover)",
+                stats: "FOR 1 (-5), DES 14 (+2), CON 16 (+3), INT 10 (+0), SAB 12 (+1), CAR 14 (+2)",
+                actions: [
+                    { name: "Toque Necrótico", desc: "Ataque Mágico: +4 para acertar. Dano: 3d6 necrótico. O alvo deve passar em CON CD 12 ou seu HP máximo é reduzido." },
+                    { name: "Lamento (1/dia)", desc: "Todas as criaturas a 9m devem passar em SAB CD 13 ou ficam Frightened por 1 minuto." }
+                ],
+                lore: "Almas daqueles que morreram pela Podridão e não foram queimados. Eles vagam buscando calor vital para roubar.",
+                secret: "Fogo sagrado ou radiante causa dano dobrado e os impede de usar o Lamento."
+            },
+            {
+                name: "Cavaleiro da Podridão",
+                type: "monstrosity",
+                cr: "5",
+                ac: 18,
+                hp: "75 (10d8 + 30)",
+                speed: "9m",
+                stats: "FOR 18 (+4), DES 10 (+0), CON 16 (+3), INT 8 (-1), SAB 10 (+0), CAR 8 (-1)",
+                actions: [
+                    { name: "Multiataque", desc: "Faz dois ataques com a Espada Longa." },
+                    { name: "Espada Longa Enferrujada", desc: "Corpo-a-Corpo: +7 para acertar. Dano: 1d8+4 cortante + 1d4 veneno." }
+                ],
+                lore: "Antigos cavaleiros que sucumbiram à infecção fúngica. A armadura agora é parte de sua pele.",
+                secret: "Seu ponto fraco é a viseira do elmo. Um acerto crítico cega a criatura."
+            },
+            {
+                name: "Cultista do Sangue",
+                type: "humanoid",
+                cr: "1/4",
+                ac: 12,
+                hp: "9 (2d8)",
+                speed: "9m",
+                stats: "FOR 10 (+0), DES 14 (+2), CON 10 (+0), INT 10 (+0), SAB 10 (+0), CAR 10 (+0)",
+                actions: [
+                    { name: "Adaga Ritual", desc: "Corpo-a-Corpo: +4 para acertar. Dano: 1d4+2 perfurante." }
+                ],
+                lore: "Aldeões desesperados que se voltaram para deuses antigos em busca de salvação.",
+                secret: "Eles carregam frascos de sangue explosivo. Se morrerem com dano de fogo, explodem (2d6 fogo em 1.5m)."
+            }
+        ];
+
+        // Add new creatures
+        bestiary.push(
+            {
+                name: "Lobo Atroz",
+                type: "beast",
+                cr: "1",
+                ac: 14,
+                hp: "37 (5d10 + 10)",
+                speed: "15m",
+                stats: "FOR 17 (+3), DES 15 (+2), CON 15 (+2), INT 3 (-4), SAB 12 (+1), CAR 7 (-2)",
+                actions: [
+                    { name: "Mordida", desc: "Corpo-a-Corpo: +5 para acertar. Dano: 2d6+3 perfurante. Se o alvo for criatura, deve passar em FOR CD 13 ou cairá prone." }
+                ],
+                lore: "Lobos gigantes das montanhas do norte, usados como montaria por orcs ou caçando em alcateias mortais.",
+                secret: "Eles têm medo de fogo mágico, mas não de fogo comum."
+            },
+            {
+                name: "Afogado",
+                type: "undead",
+                cr: "1/2",
+                ac: 10,
+                hp: "13 (2d8 + 4)",
+                speed: "9m, Natação 9m",
+                stats: "FOR 13 (+1), DES 10 (+0), CON 14 (+2), INT 5 (-3), SAB 6 (-2), CAR 5 (-3)",
+                actions: [
+                    { name: "Pancada", desc: "Corpo-a-Corpo: +3 para acertar. Dano: 1d6+1 contundente." },
+                    { name: "Vômito de Água (Recarga 6)", desc: "Cone de 4.5m. CD 10 CON ou 2d6 dano de frio." }
+                ],
+                lore: "Marinheiros que morreram no mar e foram trazidos de volta por magia negra ou maldições antigas.",
+                secret: "Eles explodem em água podre ao morrer, envenenando quem estiver perto (CON CD 10)."
+            },
+            {
+                name: "Devorador de Cadáveres",
+                type: "monstrosity",
+                cr: "2",
+                ac: 13,
+                hp: "52 (8d8 + 16)",
+                speed: "12m, Escalar 12m",
+                stats: "FOR 16 (+3), DES 16 (+3), CON 14 (+2), INT 7 (-2), SAB 10 (+0), CAR 6 (-2)",
+                actions: [
+                    { name: "Garras", desc: "Corpo-a-Corpo: +5 para acertar. Dano: 2d4+3 cortante." },
+                    { name: "Fedor", desc: "Criaturas a 1.5m devem passar em CON CD 12 ou ficam Envenenadas por 1 minuto." }
+                ],
+                lore: "Bestas necrófagas que desenterram túmulos. Têm pele pálida e esticada sobre ossos deformados.",
+                secret: "Se alimentados com carne fresca, podem ser temporariamente pacificados."
+            },
+            {
+                name: "Rei dos Bandidos",
+                type: "humanoid",
+                cr: "2",
+                ac: 15,
+                hp: "65 (10d8 + 20)",
+                speed: "9m",
+                stats: "FOR 16 (+3), DES 14 (+2), CON 14 (+2), INT 11 (+0), SAB 11 (+0), CAR 14 (+2)",
+                actions: [
+                    { name: "Multiataque", desc: "Faz dois ataques com a Cimitarra." },
+                    { name: "Cimitarra", desc: "Corpo-a-Corpo: +5 para acertar. Dano: 1d6+3 cortante." },
+                    { name: "Comando (Reação)", desc: "Quando um aliado a 9m ataca, o Rei pode permitir que ele ataque com vantagem." }
+                ],
+                lore: "Líderes carismáticos e cruéis de bandos de salteadores que assolam as estradas.",
+                secret: "Muitos são ex-nobres desonrados que buscam vingança contra suas antigas casas."
+            }
+        );
+
+        let currentBestiaryCategory = 'all';
+
+        function getCreatureTypeColor(type) {
+            const colors = {
+                beast: 'text-amber-700',
+                undead: 'text-purple-700',
+                monstrosity: 'text-red-800',
+                humanoid: 'text-blue-700'
+            };
+            return colors[type] || 'text-gray-700';
+        }
+
+        function filterBestiary(category) {
+            currentBestiaryCategory = category;
+            document.querySelectorAll('.bestiary-filter').forEach(btn => {
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active', 'bg-red-900', 'text-white');
+                    btn.classList.remove('text-gray-300');
+                } else {
+                    btn.classList.remove('active', 'bg-red-900', 'text-white');
+                    btn.classList.add('text-gray-300');
+                }
+            });
+            renderBestiary();
+        }
+
+        function renderBestiary() {
+            const container = document.getElementById('grid-bestiary');
+            const filtered = currentBestiaryCategory === 'all'
+                ? bestiary
+                : bestiary.filter(c => c.type === currentBestiaryCategory);
+
+            container.innerHTML = filtered.map((creature, index) => {
+                const fullIndex = bestiary.indexOf(creature);
+                return `
+                <div class="house-card p-5 relative overflow-hidden cursor-pointer group border-l-4 border-gray-600 bg-gray-800/5" onclick="openBestiaryModal(${fullIndex})">
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-bold text-lg uppercase cinzel text-gray-900 group-hover:text-red-900 transition-colors">${creature.name}</h3>
+                            <span class="text-xs font-bold bg-gray-200 px-2 py-1 rounded">CR ${creature.cr}</span>
+                        </div>
+                        <p class="text-xs font-bold ${getCreatureTypeColor(creature.type)} uppercase tracking-wider mb-3">${creature.type}</p>
+                        <div class="text-sm text-gray-700 space-y-1">
+                            <p><strong>AC:</strong> ${creature.ac} | <strong>HP:</strong> ${creature.hp}</p>
+                            <p class="truncate text-xs italic text-gray-500">${creature.lore}</p>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        function openBestiaryModal(index) {
+            const creature = bestiary[index];
+            const modalBody = document.getElementById('bestiary-modal-body');
+
+            modalBody.innerHTML = `
+                <div class="text-center mb-6">
+                    <h2 class="text-4xl font-black cinzel text-gray-900 uppercase mb-1">${creature.name}</h2>
+                    <p class="text-sm font-bold ${getCreatureTypeColor(creature.type)} uppercase tracking-widest">${creature.type} • CR ${creature.cr}</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Stats Column -->
+                    <div class="md:col-span-1 space-y-4">
+                        <div class="bg-red-900/5 p-4 rounded border border-red-900/20">
+                            <div class="flex justify-between border-b border-red-900/20 pb-2 mb-2">
+                                <span class="font-bold">AC</span> <span>${creature.ac}</span>
+                            </div>
+                            <div class="flex justify-between border-b border-red-900/20 pb-2 mb-2">
+                                <span class="font-bold">HP</span> <span>${creature.hp}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-bold">Desl.</span> <span>${creature.speed}</span>
+                            </div>
+                        </div>
+                        <div class="text-xs text-center font-mono bg-gray-100 p-2 rounded border border-gray-300">
+                            ${creature.stats}
+                        </div>
+                    </div>
+
+                    <!-- Actions & Lore Column -->
+                    <div class="md:col-span-2 space-y-6">
+                        <div>
+                            <h3 class="font-bold text-red-900 border-b border-red-900 mb-3 uppercase text-sm">Ações</h3>
+                            <ul class="space-y-3">
+                                ${creature.actions.map(a => `
+                                    <li class="text-sm text-gray-800">
+                                        <strong class="text-red-900">${a.name}.</strong> ${a.desc}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                            <p class="text-sm italic text-gray-600">${creature.lore}</p>
+                        </div>
+
+                        <div class="p-4 bg-red-900/10 border-2 border-dashed border-red-900 rounded relative group cursor-help">
+                            <div class="absolute -top-3 right-4 bg-[#f0e6d2] px-2 text-xs font-bold text-red-900 uppercase tracking-widest">DM Only</div>
+                            <h4 class="font-bold text-red-900 mb-2 flex items-center"><i data-lucide="lock" class="w-4 h-4 mr-2"></i>Segredo</h4>
+                            <p class="text-sm text-gray-800 blur-sm group-hover:blur-none transition-all duration-300">
+                                ${creature.secret}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('bestiary-modal').classList.add('open');
+            lucide.createIcons();
+        }
+
+        function closeBestiaryModal(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('bestiary-modal').classList.remove('open');
+        }
+
+        // --- NPC DATA & LOGIC ---
+        const npcs = [
+            {
+                name: "Sor Alaric",
+                role: "noble",
+                location: "Capital",
+                desc: "Um cavaleiro idoso, mas ainda formidável, que serve como conselheiro militar.",
+                personality: "Leal, Rígido, Melancólico.",
+                secret: "Ele sabe quem envenenou o Rei, mas protege a pessoa porque é sua filha bastarda."
+            },
+            {
+                name: "Kael 'Mão-Leve'",
+                role: "mercenary",
+                location: "Taverna do Javali",
+                desc: "Um ladino charmoso que vende informações por ouro ou vinho.",
+                personality: "Cínico, Ganancioso, Engraçado.",
+                secret: "Ele é na verdade um espião da Casa Pearl infiltrado entre os mercenários."
+            },
+            {
+                name: "Velha Magda",
+                role: "commoner",
+                location: "Vila Baixa",
+                desc: "Uma parteira que conhece os segredos de todas as famílias nobres.",
+                personality: "Fofoqueira, Maternal, Supersticiosa.",
+                secret: "Ela esconde um herdeiro Targaryen (ou equivalente) em seu porão."
+            },
+            {
+                name: "Irmão Silas",
+                role: "mystic",
+                location: "Templo da Pedra",
+                desc: "Um monge cego que afirma ouvir a voz da montanha.",
+                personality: "Enigmático, Sereno, Perturbador.",
+                secret: "A 'voz' que ele ouve é na verdade a Besta da Fenda sussurrando."
+            }
+        ];
+
+        // Add new NPCs
+        npcs.push(
+            {
+                name: "Lady Elara Vane",
+                role: "noble",
+                location: "Solar Vane",
+                desc: "Uma nobre astuta que controla o comércio de grãos com mão de ferro.",
+                personality: "Calculista, Elegante, Implacável.",
+                secret: "Ela está financiando secretamente os rebeldes para enfraquecer seus rivais."
+            },
+            {
+                name: "O Touro",
+                role: "mercenary",
+                location: "Arena de Sangue",
+                desc: "Um gigante de homem, campeão invicto da arena, que fala pouco e bate forte.",
+                personality: "Estoico, Brutal, Honrado (à sua maneira).",
+                secret: "Ele é um pacifista que luta apenas para pagar a dívida de sua família."
+            },
+            {
+                name: "Tom 'Rato de Rua'",
+                role: "commoner",
+                location: "Becos da Baixada",
+                desc: "Um órfão que conhece cada atalho e esconderijo da cidade.",
+                personality: "Ágil, Desconfiado, Leal a quem paga.",
+                secret: "Ele encontrou uma entrada para as catacumbas reais, mas tem medo de entrar."
+            },
+            {
+                name: "Vana, a Vidente",
+                role: "mystic",
+                location: "Pântano das Brumas",
+                desc: "Uma velha eremita que lê o futuro nas entranhas de pássaros.",
+                personality: "Enigmática, Assustadora, Sábia.",
+                secret: "Suas previsões são sempre precisas, mas ela omite a parte trágica de propósito."
+            }
+        );
+
+        let currentNPCCategory = 'all';
+
+        function getNPCRoleColor(role) {
+            const colors = {
+                noble: 'text-yellow-700',
+                mercenary: 'text-red-700',
+                commoner: 'text-green-700',
+                mystic: 'text-purple-700'
+            };
+            return colors[role] || 'text-gray-700';
+        }
+
+        function filterNPCs(category) {
+            currentNPCCategory = category;
+            document.querySelectorAll('.npc-filter').forEach(btn => {
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active', 'bg-red-900', 'text-white');
+                    btn.classList.remove('text-gray-300');
+                } else {
+                    btn.classList.remove('active', 'bg-red-900', 'text-white');
+                    btn.classList.add('text-gray-300');
+                }
+            });
+            renderNPCs();
+        }
+
+        function renderNPCs() {
+            const container = document.getElementById('grid-npcs');
+            const filtered = currentNPCCategory === 'all'
+                ? npcs
+                : npcs.filter(n => n.role === currentNPCCategory);
+
+            container.innerHTML = filtered.map((npc, index) => {
+                const fullIndex = npcs.indexOf(npc);
+                return `
+                <div class="house-card p-5 relative overflow-hidden cursor-pointer group border-l-4 border-gray-400 bg-white/40" onclick="openNPCModal(${fullIndex})">
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-bold text-lg uppercase cinzel text-gray-900 group-hover:text-red-900 transition-colors">${npc.name}</h3>
+                        </div>
+                        <p class="text-xs font-bold ${getNPCRoleColor(npc.role)} uppercase tracking-wider mb-2">${npc.role} • ${npc.location}</p>
+                        <p class="text-sm text-gray-700 line-clamp-2">${npc.desc}</p>
+                    </div>
+                </div>
+                `;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        function openNPCModal(index) {
+            const npc = npcs[index];
+            const modalBody = document.getElementById('npc-modal-body');
+
+            modalBody.innerHTML = `
+                <div class="text-center mb-8">
+                    <div class="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center border-2 border-gray-400">
+                        <i data-lucide="user" class="w-10 h-10 text-gray-500"></i>
+                    </div>
+                    <h2 class="text-3xl font-black cinzel text-gray-900 uppercase mb-1">${npc.name}</h2>
+                    <p class="text-sm font-bold ${getNPCRoleColor(npc.role)} uppercase tracking-widest">${npc.role}</p>
+                    <p class="text-xs text-gray-500 mt-1"><i data-lucide="map-pin" class="w-3 h-3 inline mr-1"></i>${npc.location}</p>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-white/50 p-4 rounded border border-gray-300">
+                        <h3 class="font-bold text-sm uppercase text-gray-500 mb-2">Descrição</h3>
+                        <p class="text-gray-800 leading-relaxed">${npc.desc}</p>
+                    </div>
+
+                    <div class="bg-white/50 p-4 rounded border border-gray-300">
+                        <h3 class="font-bold text-sm uppercase text-gray-500 mb-2">Personalidade</h3>
+                        <p class="text-gray-800 italic">"${npc.personality}"</p>
+                    </div>
+
+                    <div class="p-4 bg-red-900/10 border-2 border-dashed border-red-900 rounded relative group cursor-help">
+                        <div class="absolute -top-3 right-4 bg-[#f0e6d2] px-2 text-xs font-bold text-red-900 uppercase tracking-widest">DM Only</div>
+                        <h4 class="font-bold text-red-900 mb-2 flex items-center"><i data-lucide="lock" class="w-4 h-4 mr-2"></i>Segredo</h4>
+                        <p class="text-sm text-gray-800 blur-sm group-hover:blur-none transition-all duration-300">
+                            ${npc.secret}
+                        </p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('npc-modal').classList.add('open');
+            lucide.createIcons();
+        }
+
+        function closeNPCModal(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('npc-modal').classList.remove('open');
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === "Escape") {
+                closeHouseModal();
+                closeClassModal();
+                closeRitualModal();
+                closeEquipmentModal();
+                closeBestiaryModal();
+                closeNPCModal();
+                closeLocationModal();
+            }
+        });
+
+        // Initial Render
+        renderHouses('north', 'grid-north');
+        renderHouses('coast', 'grid-coast');
+        renderHouses('plains', 'grid-plains');
+        renderHouses('capital', 'grid-capital');
+        renderHouses('wild', 'grid-wild');
+        renderClasses();
+        renderRituals();
+        renderEquipment();
+        renderBestiary();
+        renderNPCs();
+
+
+        // Navigation Logic
+        // --- MAP DATA & LOGIC ---
+        const mapLocations = [
+            {
+                name: "Cidadela de Ferro",
+                type: "city",
+                top: "40%",
+                left: "48%",
+                desc: "A capital fortificada de Aethelgard, onde o Trono de Cinzas permanece vazio.",
+                ruler: "Conselho dos Lordes (Interino)",
+                danger: "Baixo (Dentro dos muros)",
+                icon: "castle"
+            },
+            {
+                name: "Forte Rocha",
+                type: "city",
+                top: "15%",
+                left: "25%",
+                desc: "Sede da Casa Varr, encravada nas montanhas geladas do norte.",
+                ruler: "Lorde Horgar Varr",
+                danger: "Médio (Frio extremo)",
+                icon: "shield"
+            },
+            {
+                name: "Porto da Névoa",
+                type: "city",
+                top: "60%",
+                left: "15%",
+                desc: "O maior porto comercial, sempre coberto por uma neblina sobrenatural.",
+                ruler: "Lady Elara Vane",
+                danger: "Médio (Crimes e cultos)",
+                icon: "anchor"
+            },
+            {
+                name: "Ruínas de Eldoria",
+                type: "ruin",
+                top: "75%",
+                left: "70%",
+                desc: "Antiga capital élfica, agora infestada por espectros e memórias dolorosas.",
+                ruler: "Nenhum (Dominado por Banshees)",
+                danger: "Extremo",
+                icon: "skull"
+            },
+            {
+                name: "Pico da Tempestade",
+                type: "landmark",
+                top: "10%",
+                left: "80%",
+                desc: "A montanha mais alta, onde dizem que os primeiros dragões nasceram.",
+                ruler: "Nenhum",
+                danger: "Alto (Wyverns)",
+                icon: "mountain"
+            },
+            {
+                name: "Floresta dos Sussurros",
+                type: "dungeon",
+                top: "50%",
+                left: "85%",
+                desc: "Uma floresta onde as árvores sangram e os caminhos mudam de lugar.",
+                ruler: "Coven das Bruxas",
+                danger: "Alto",
+                icon: "trees"
+            }
+        ];
+
+        function renderMapPins() {
+            const container = document.getElementById('map-pins-container');
+            container.innerHTML = mapLocations.map((loc, index) => `
+                <div class="absolute group cursor-pointer" style="top: ${loc.top}; left: ${loc.left}; transform: translate(-50%, -50%);" onclick="openLocationModal(${index})">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-red-900 rounded-full animate-ping opacity-75"></div>
+                        <div class="relative bg-gray-900 text-white p-2 rounded-full border-2 border-gold shadow-lg hover:bg-red-900 transition-colors z-10">
+                            <i data-lucide="${loc.icon}" class="w-4 h-4"></i>
+                        </div>
+                        
+                        <!-- Tooltip -->
+                        <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-32 bg-black/90 text-white text-xs p-2 rounded border border-gold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20 text-center">
+                            <strong class="block text-gold mb-1">${loc.name}</strong>
+                            <span class="text-[10px] text-gray-300">${loc.type.toUpperCase()}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function openLocationModal(index) {
+            const loc = mapLocations[index];
+            // Reuse bestiary modal structure for simplicity or create a generic one
+            // Let's create a specific simple modal content
+            const modalBody = document.getElementById('location-modal-body'); // We need to add this modal HTML
+
+            // If we don't have a specific location modal, we can reuse the generic 'modal' if we adjust it, 
+            // but let's assume we will add a specific one.
+            // Actually, let's use a SweetAlert style or just a simple overlay for now, 
+            // OR reuse the existing modal structure by injecting a new modal div.
+
+            // Let's inject the modal HTML if it doesn't exist, or just assume we added it.
+            // For this step, I will add the modal HTML in the next tool call.
+
+            modalBody.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="inline-block p-4 rounded-full bg-gray-900 border-2 border-gold mb-4">
+                        <i data-lucide="${loc.icon}" class="w-12 h-12 text-gold"></i>
+                    </div>
+                    <h2 class="text-3xl font-black cinzel text-gray-900 uppercase mb-1">${loc.name}</h2>
+                    <span class="px-3 py-1 rounded-full bg-gray-200 text-xs font-bold uppercase tracking-widest text-gray-600">${loc.type}</span>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-white p-4 rounded border-l-4 border-gold shadow-sm">
+                        <p class="text-gray-800 italic font-serif text-lg leading-relaxed">"${loc.desc}"</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-gray-100 p-3 rounded border border-gray-300">
+                            <h4 class="font-bold text-xs uppercase text-gray-500 mb-1">Governante / Facção</h4>
+                            <p class="font-bold text-gray-900">${loc.ruler}</p>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded border border-red-200">
+                            <h4 class="font-bold text-xs uppercase text-red-800 mb-1">Nível de Perigo</h4>
+                            <p class="font-bold text-red-900">${loc.danger}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('location-modal').classList.add('open');
+            lucide.createIcons();
+        }
+
+        function closeLocationModal() {
+            document.getElementById('location-modal').classList.remove('open');
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(el => el.classList.add('hidden'));
+
+            // Show target section
+            document.getElementById(sectionId).classList.remove('hidden');
+
+            // Update Sidebar Active State
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active', 'bg-red-900', 'text-white'));
+
+            // Find the button that called this (rough mapping)
+            const btnId = 'btn-' + sectionId.replace('houses-', '').replace('combat-', '');
+            const activeBtn = document.getElementById(btnId) || document.getElementById('btn-' + sectionId);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            // Re-initialize icons just in case
+            lucide.createIcons();
+
+            // Scroll to top
+            document.querySelector('main').scrollTop = 0;
+        }
+
+        // Final Initial Render Call for Map Pins (must be after data definition)
+        renderMapPins();
+
+    </script>
+
+    <!-- Dice Roller FAB -->
+    <button onclick="toggleDiceRoller()"
+        class="fixed bottom-8 right-8 bg-red-900 text-white p-4 rounded-full shadow-2xl hover:bg-red-800 transition-all z-50 border-2 border-[#c5a059] hover:scale-110 group">
+        <i data-lucide="dices" class="w-8 h-8"></i>
+        <span
+            class="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-black/90 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-semibold">Rolar
+            Dados</span>
+    </button>
+
+    <!-- Dice Roller Modal -->
+    <div id="dice-modal"
+        class="fixed bottom-24 right-8 bg-[#1a1614] border-2 border-[#c5a059] p-6 rounded-lg shadow-2xl w-80 z-50 hidden transform transition-all origin-bottom-right scale-90 opacity-0">
+        <div class="flex justify-between items-center mb-4 border-b border-[#c5a059]/30 pb-2">
+            <h3 class="text-[#c5a059] font-bold cinzel flex items-center text-lg"><i data-lucide="dices"
+                    class="w-5 h-5 mr-2"></i>
+                Rolador</h3>
+            <button onclick="toggleDiceRoller()" class="text-gray-400 hover:text-[#c5a059] transition-colors"><i
+                    data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3 mb-6">
+            <button onclick="rollDice(4)"
+                class="bg-gray-700 hover:bg-red-900 text-white p-2.5 rounded border border-gray-600 hover:border-red-700 transition-all font-bold text-sm">d4</button>
+            <button onclick="rollDice(6)"
+                class="bg-gray-700 hover:bg-red-900 text-white p-2.5 rounded border border-gray-600 hover:border-red-700 transition-all font-bold text-sm">d6</button>
+            <button onclick="rollDice(8)"
+                class="bg-gray-700 hover:bg-red-900 text-white p-2.5 rounded border border-gray-600 hover:border-red-700 transition-all font-bold text-sm">d8</button>
+            <button onclick="rollDice(10)"
+                class="bg-gray-700 hover:bg-red-900 text-white p-2.5 rounded border border-gray-600 hover:border-red-700 transition-all font-bold text-sm">d10</button>
+            <button onclick="rollDice(12)"
+                class="bg-gray-700 hover:bg-red-900 text-white p-2.5 rounded border border-gray-600 hover:border-red-700 transition-all font-bold text-sm">d12</button>
+            <button onclick="rollDice(20)"
+                class="bg-gray-700 hover:bg-red-900 text-[#c5a059] hover:text-white p-2.5 rounded border border-[#c5a059] hover:border-red-700 transition-all font-bold text-sm">d20</button>
+        </div>
+
+        <div class="bg-black/60 p-3 rounded border border-gray-700 h-32 overflow-y-auto" id="dice-history">
+            <div class="text-xs text-gray-400 text-center italic mt-10">Histórico de rolagens...</div>
+        </div>
+    </div>
+
+    <script>
+        // Search Logic
+        function handleSearch(query) {
+            const term = query.toLowerCase();
+
+            // 1. Filter House Cards
+            const regions = ['north', 'coast', 'plains', 'wild'];
+
+            regions.forEach(region => {
+                const container = document.getElementById(`grid-${region}`);
+                if (!container) return;
+
+                const cards = container.getElementsByClassName('house-card');
+                let hasVisibleCard = false;
+
+                Array.from(cards).forEach(card => {
+                    const text = card.innerText.toLowerCase();
+                    if (text.includes(term)) {
+                        card.style.display = 'block';
+                        hasVisibleCard = true;
+                        foundInHouses = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Show/Hide section if it has matching cards (optional, but good for UX)
+                // For now, we keep sections visible but maybe highlight the tab? 
+                // Let's just ensure if we are searching, we might want to auto-switch to a view?
+                // No, that's too invasive. Just filtering is enough.
+            });
+
+            // 2. Highlight/Find in Text (Simple implementation)
+            // This is complex to do non-destructively on the whole DOM. 
+            // For now, let's stick to filtering House Cards as that's the main data.
+        }
+
+        // Dice Roller Logic
+        function toggleDiceRoller() {
+            const modal = document.getElementById('dice-modal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                // Small delay to allow display:block to apply before opacity transition
+                setTimeout(() => {
+                    modal.classList.remove('scale-90', 'opacity-0');
+                }, 10);
+            } else {
+                modal.classList.add('scale-90', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function rollDice(sides) {
+            const result = Math.floor(Math.random() * sides) + 1;
+            const history = document.getElementById('dice-history');
+
+            // Clear placeholder if exists
+            if (history.querySelector('.text-center')) {
+                history.innerHTML = '';
+            }
+
+            const entry = document.createElement('div');
+            entry.className = 'flex justify-between items-center mb-2 border-b border-gray-800 pb-1 last:border-0 animate-fadeIn';
+
+            let colorClass = 'text-white';
+            if (result === 1) colorClass = 'text-red-500';
+            if (result === sides) colorClass = 'text-gold font-bold';
+
+            entry.innerHTML = `
+                <span class="text-xs text-gray-500">d${sides}</span>
+                <span class="${colorClass}">${result}</span>
+            `;
+
+            history.prepend(entry);
+
+            // Limit history
+            if (history.children.length > 10) {
+                history.lastElementChild.remove();
+            }
+        }
+
+        // Init Icons
+        lucide.createIcons();
+
+    </script>
+</body>
+
+</html>

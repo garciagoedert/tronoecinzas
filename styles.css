@@ -1,0 +1,347 @@
+:root {
+    --paper: #f0e6d2;
+    --paper-dark: #e6d2a0;
+    --ink: #2b2626;
+    --blood: #8a1c1c;
+    --gold: #c5a059;
+    --gold-dim: #8a703e;
+    --wood: #1a1614;
+    --wood-light: #2c241b;
+    --overlay: rgba(0, 0, 0, 0.4);
+}
+
+body {
+    background-color: #0f0f0f;
+    color: var(--ink);
+    font-family: 'Merriweather', serif;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a1a1a' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+h1,
+h2,
+h3,
+h4,
+.cinzel {
+    font-family: 'Cinzel', serif;
+    color: var(--ink);
+}
+
+/* --- Main Content Area --- */
+main {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* --- Parchment Effect --- */
+.parchment {
+    background-color: var(--paper);
+    background-image:
+        radial-gradient(circle at center, transparent 50%, rgba(0, 0, 0, 0.1) 100%),
+        url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    box-shadow:
+        0 0 50px rgba(0, 0, 0, 0.8),
+        inset 0 0 60px rgba(139, 69, 19, 0.15);
+    border: 1px solid #d4c5a0;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.parchment * {
+    box-sizing: border-box;
+}
+
+.parchment .grid {
+    max-width: 100%;
+}
+
+/* --- Sidebar (Leather Book Spine) --- */
+aside {
+    background: linear-gradient(to right, #1a1614, #2c241b);
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+    border-right: 2px solid #3e3228;
+    position: relative;
+    z-index: 50;
+    overflow-y: auto;
+}
+
+aside::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7z' fill='%23000000' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.sidebar-title {
+    color: var(--gold);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    letter-spacing: 0.1em;
+}
+
+.nav-item {
+    color: #a8a29e;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-item:hover {
+    color: var(--gold);
+    background: rgba(255, 255, 255, 0.03);
+    padding-left: 1.75rem;
+}
+
+.nav-item.active {
+    color: var(--gold);
+    background: linear-gradient(90deg, rgba(197, 160, 89, 0.1) 0%, transparent 100%);
+    border-left: 3px solid var(--gold);
+    text-shadow: 0 0 10px rgba(197, 160, 89, 0.3);
+}
+
+/* --- Section Styling --- */
+.section-title {
+    border-bottom: 2px solid var(--blood);
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--gold);
+    opacity: 0.6;
+}
+
+/* --- House Cards --- */
+.house-card {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(44, 36, 27, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.house-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--ink);
+    opacity: 0.8;
+    transition: background 0.3s;
+}
+
+.house-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.6);
+    border-color: var(--blood);
+}
+
+.house-card:hover::before {
+    background: var(--blood);
+}
+
+/* --- Rule Boxes --- */
+.rule-box {
+    border-left: 4px solid var(--blood);
+    background: linear-gradient(to right, rgba(138, 28, 28, 0.08), transparent);
+    position: relative;
+}
+
+.rule-box h3 {
+    color: var(--blood);
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content-section:not(.hidden) {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Scrollbar custom */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1614;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3e3228;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-dim);
+}
+
+/* --- Modal --- */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-backdrop.open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-content {
+    background-color: var(--paper);
+    background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.modal-backdrop.open .modal-content {
+    transform: scale(1);
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: var(--blood);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.close-modal:hover {
+    transform: scale(1.1) rotate(90deg);
+}
+
+/* --- Map Pins --- */
+#map-pins-container .group {
+    pointer-events: auto;
+    /* Re-enable pointer events for pins */
+}
+
+@keyframes ping {
+
+    75%,
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.animate-ping {
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* --- Print Styles --- */
+@media print {
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    body {
+        background: white;
+        color: black;
+        overflow: visible;
+        height: auto;
+    }
+
+    /* Hide UI elements */
+    aside,
+    .no-print,
+    .close-modal,
+    .modal-backdrop {
+        display: none !important;
+    }
+
+    /* Reset Main Container */
+    main {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+        overflow: visible !important;
+        background: white !important;
+    }
+
+    /* Reset Parchment Wrapper (Do NOT hide it, just strip styles) */
+    .parchment {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+    }
+
+    /* Hide all content sections by default */
+    .content-section {
+        display: none !important;
+    }
+
+    /* Show ONLY Character Sheet */
+    #character-sheet {
+        display: block !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: white;
+        z-index: 9999;
+    }
+
+    .sheet-container {
+        box-shadow: none !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+        max-width: 210mm !important;
+        height: 100%;
+        page-break-after: always;
+    }
+}
