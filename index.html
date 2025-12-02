@@ -17,10 +17,32 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="h-screen flex overflow-hidden">
+<body class="h-screen flex flex-col lg:flex-row overflow-hidden bg-[#0f0f0f]">
+
+    <!-- Mobile Header -->
+    <header
+        class="lg:hidden flex items-center justify-between p-4 border-b border-gray-800/50 bg-[#1a1614] z-30 relative shadow-md">
+        <div class="flex items-center text-red-700">
+            <i data-lucide="sword" class="w-6 h-6 mr-2"></i>
+            <span class="font-black text-lg tracking-widest text-gold cinzel">TRONO & CINZAS</span>
+        </div>
+        <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white focus:outline-none">
+            <i data-lucide="menu" class="w-8 h-8"></i>
+        </button>
+    </header>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" onclick="toggleSidebar()"
+        class="fixed inset-0 bg-black/80 z-40 hidden lg:hidden backdrop-blur-sm transition-opacity opacity-0"></div>
 
     <!-- Sidebar Navigation -->
-    <aside class="w-72 flex-shrink-0 flex flex-col z-20 h-full max-h-screen">
+    <aside id="sidebar"
+        class="w-72 flex-shrink-0 flex flex-col z-50 h-full max-h-screen fixed inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 lg:static transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none">
+        <div class="absolute top-4 right-4 lg:hidden">
+            <button onclick="toggleSidebar()" class="text-gray-500 hover:text-white">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
         <div class="p-8 text-center border-b border-gray-800/50 relative">
             <div class="mb-3 text-red-700 drop-shadow-lg"><i data-lucide="sword" class="w-12 h-12 mx-auto"></i></div>
             <h1 class="text-3xl font-black sidebar-title leading-none">TRONO &<br><span
@@ -98,9 +120,9 @@
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 overflow-y-auto p-8 lg:p-12 relative bg-black/50">
+    <main class="flex-1 overflow-y-auto p-4 lg:p-12 relative bg-black/50 w-full">
         <!-- Background Wrapper for Parchment Look -->
-        <div class="max-w-5xl mx-auto parchment min-h-full p-8 md:p-12 shadow-2xl rounded-sm">
+        <div class="max-w-5xl mx-auto parchment min-h-full p-6 md:p-12 shadow-2xl rounded-sm">
 
             <!-- SECTION: INTRO -->
             <div id="intro" class="content-section">
@@ -196,7 +218,8 @@
                             <div class="text-center">
                                 <i data-lucide="snowflake"
                                     class="w-12 h-12 mx-auto mb-2 text-gray-600 group-hover:text-blue-900 transition-colors"></i>
-                                <h3 class="font-bold cinzel text-xl text-gray-800 group-hover:text-blue-900">O Norte
+                                <h3 class="font-bold cinzel text-sm md:text-xl text-gray-800 group-hover:text-blue-900">
+                                    O Norte
                                     Gélido</h3>
                                 <p
                                     class="text-xs text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -213,7 +236,9 @@
                             <div class="text-center">
                                 <i data-lucide="mountain"
                                     class="w-12 h-12 mx-auto mb-2 text-gray-600 group-hover:text-green-900 transition-colors"></i>
-                                <h3 class="font-bold cinzel text-xl text-gray-800 group-hover:text-green-900">Fronteira
+                                <h3
+                                    class="font-bold cinzel text-sm md:text-xl text-gray-800 group-hover:text-green-900">
+                                    Fronteira
                                     Selvagem</h3>
                                 <p
                                     class="text-xs text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -230,7 +255,8 @@
                             <div class="text-center">
                                 <i data-lucide="anchor"
                                     class="w-12 h-12 mx-auto mb-2 text-gray-600 group-hover:text-teal-900 transition-colors"></i>
-                                <h3 class="font-bold cinzel text-xl text-gray-800 group-hover:text-teal-900">A Costa
+                                <h3 class="font-bold cinzel text-sm md:text-xl text-gray-800 group-hover:text-teal-900">
+                                    A Costa
                                     Mercante</h3>
                                 <p
                                     class="text-xs text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -247,7 +273,9 @@
                             <div class="text-center">
                                 <i data-lucide="wheat"
                                     class="w-12 h-12 mx-auto mb-2 text-gray-600 group-hover:text-yellow-900 transition-colors"></i>
-                                <h3 class="font-bold cinzel text-xl text-gray-800 group-hover:text-yellow-900">Planícies
+                                <h3
+                                    class="font-bold cinzel text-sm md:text-xl text-gray-800 group-hover:text-yellow-900">
+                                    Planícies
                                     Centrais</h3>
                                 <p
                                     class="text-xs text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -740,486 +768,500 @@
                 </div>
 
                 <!-- A4 Sheet Container -->
-                <div class="sheet-container bg-white text-black p-8 mx-auto shadow-lg relative overflow-hidden"
-                    style="max-width: 210mm; min-height: 297mm; font-family: 'Merriweather', serif;">
-                    <!-- Border Decoration -->
-                    <div class="absolute inset-0 border-[3px] border-double border-gray-800 m-2 pointer-events-none">
-                    </div>
-                    <div class="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-gray-800"></div>
-                    <div class="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-gray-800"></div>
-                    <div class="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-gray-800"></div>
-                    <div class="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-gray-800"></div>
-
-                    <!-- Header -->
-                    <div class="flex justify-between items-end border-b-2 border-gray-800 pb-4 mb-6 relative z-10">
-                        <div>
-                            <h1 class="text-4xl font-black cinzel uppercase tracking-widest text-gray-900">Aethelgard
-                            </h1>
-                            <p class="text-xs uppercase tracking-[0.3em] text-gray-600">Ficha de Personagem</p>
+                <div class="overflow-x-auto pb-8">
+                    <div class="sheet-container bg-white text-black p-8 mx-auto shadow-lg relative overflow-hidden"
+                        style="max-width: 210mm; min-height: 297mm; font-family: 'Merriweather', serif; min-width: 800px;">
+                        <!-- Border Decoration -->
+                        <div
+                            class="absolute inset-0 border-[3px] border-double border-gray-800 m-2 pointer-events-none">
                         </div>
-                        <div class="text-right">
-                            <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-left">
-                                <div>
-                                    <label class="block text-[9px] uppercase font-bold text-gray-500">Nome</label>
-                                    <div class="border-b border-gray-400 w-32 h-6"></div>
-                                </div>
-                                <div>
-                                    <label class="block text-[9px] uppercase font-bold text-gray-500">Casa</label>
-                                    <div class="border-b border-gray-400 w-32 h-6"></div>
-                                </div>
-                                <div>
-                                    <label class="block text-[9px] uppercase font-bold text-gray-500">Classe</label>
-                                    <div class="border-b border-gray-400 w-32 h-6"></div>
-                                </div>
-                                <div>
-                                    <label class="block text-[9px] uppercase font-bold text-gray-500">Nível</label>
-                                    <div class="border-b border-gray-400 w-32 h-6"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-gray-800"></div>
+                        <div class="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-gray-800"></div>
+                        <div class="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-gray-800"></div>
+                        <div class="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-gray-800"></div>
 
-                    <!-- Main Grid -->
-                    <div class="grid grid-cols-12 gap-6 relative z-10">
-
-                        <!-- Col 1: Attributes & Skills (4 cols) -->
-                        <div class="col-span-4 space-y-6">
-                            <!-- Attributes -->
-                            <div class="space-y-3">
-                                <div
-                                    class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
-                                    <div class="text-center w-12">
-                                        <span class="block text-xs font-bold uppercase text-gray-500">FOR</span>
-                                        <div class="text-xl font-black cinzel">10</div>
-                                    </div>
-                                    <div class="text-sm font-bold text-gray-700">+0</div>
-                                </div>
-                                <div
-                                    class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
-                                    <div class="text-center w-12">
-                                        <span class="block text-xs font-bold uppercase text-gray-500">DES</span>
-                                        <div class="text-xl font-black cinzel">10</div>
-                                    </div>
-                                    <div class="text-sm font-bold text-gray-700">+0</div>
-                                </div>
-                                <div
-                                    class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
-                                    <div class="text-center w-12">
-                                        <span class="block text-xs font-bold uppercase text-gray-500">CON</span>
-                                        <div class="text-xl font-black cinzel">10</div>
-                                    </div>
-                                    <div class="text-sm font-bold text-gray-700">+0</div>
-                                </div>
-                                <div
-                                    class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
-                                    <div class="text-center w-12">
-                                        <span class="block text-xs font-bold uppercase text-gray-500">INT</span>
-                                        <div class="text-xl font-black cinzel">10</div>
-                                    </div>
-                                    <div class="text-sm font-bold text-gray-700">+0</div>
-                                </div>
-                                <div
-                                    class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
-                                    <div class="text-center w-12">
-                                        <span class="block text-xs font-bold uppercase text-gray-500">SAB</span>
-                                        <div class="text-xl font-black cinzel">10</div>
-                                    </div>
-                                    <div class="text-sm font-bold text-gray-700">+0</div>
-                                </div>
-                                <div
-                                    class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
-                                    <div class="text-center w-12">
-                                        <span class="block text-xs font-bold uppercase text-gray-500">CAR</span>
-                                        <div class="text-xl font-black cinzel">10</div>
-                                    </div>
-                                    <div class="text-sm font-bold text-gray-700">+0</div>
-                                </div>
-                            </div>
-
-                            <!-- Skills -->
+                        <!-- Header -->
+                        <div class="flex justify-between items-end border-b-2 border-gray-800 pb-4 mb-6 relative z-10">
                             <div>
-                                <h3 class="font-bold text-xs uppercase border-b border-gray-800 mb-2">Perícias</h3>
-                                <ul class="text-[10px] space-y-1">
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Des)</span> Acrobacia
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Sab)</span> Adestrar Animais
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Int)</span> Arcanismo
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(For)</span> Atletismo
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Car)</span> Atuação
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Car)</span> Blefe
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Des)</span> Furtividade
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Int)</span> História
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Car)</span> Intimidação
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Sab)</span> Intuição
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Int)</span> Investigação
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Sab)</span> Medicina
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Int)</span> Natureza
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Sab)</span> Percepção
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Car)</span> Persuasão
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Des)</span> Prestidigitação
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Int)</span> Religião
-                                    </li>
-                                    <li class="flex items-center">
-                                        <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
-                                            class="text-gray-400 mr-1">(Sab)</span> Sobrevivência
-                                    </li>
-                                </ul>
+                                <h1 class="text-4xl font-black cinzel uppercase tracking-widest text-gray-900">
+                                    Aethelgard
+                                </h1>
+                                <p class="text-xs uppercase tracking-[0.3em] text-gray-600">Ficha de Personagem</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-left">
+                                    <div>
+                                        <label class="block text-[9px] uppercase font-bold text-gray-500">Nome</label>
+                                        <div class="border-b border-gray-400 w-32 h-6"></div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] uppercase font-bold text-gray-500">Casa</label>
+                                        <div class="border-b border-gray-400 w-32 h-6"></div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] uppercase font-bold text-gray-500">Classe</label>
+                                        <div class="border-b border-gray-400 w-32 h-6"></div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] uppercase font-bold text-gray-500">Nível</label>
+                                        <div class="border-b border-gray-400 w-32 h-6"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Col 2: Vitals & Combat (8 cols) -->
-                        <div class="col-span-8 space-y-6">
+                        <!-- Main Grid -->
+                        <div class="grid grid-cols-12 gap-6 relative z-10">
 
-                            <!-- Vitals Row -->
-                            <div class="grid grid-cols-4 gap-4">
-                                <div class="col-span-1 border-2 border-gray-800 p-2 text-center rounded">
-                                    <label class="block text-[9px] uppercase font-bold text-gray-500">Classe de
-                                        Armadura</label>
-                                    <div class="text-3xl font-black cinzel mt-1"></div>
-                                </div>
-                                <div class="col-span-1 border-2 border-gray-800 p-2 text-center rounded">
-                                    <label class="block text-[9px] uppercase font-bold text-gray-500">Iniciativa</label>
-                                    <div class="text-3xl font-black cinzel mt-1"></div>
-                                </div>
-                                <div class="col-span-1 border-2 border-gray-800 p-2 text-center rounded">
-                                    <label
-                                        class="block text-[9px] uppercase font-bold text-gray-500">Deslocamento</label>
-                                    <div class="text-3xl font-black cinzel mt-1"></div>
-                                </div>
-                                <div class="col-span-1 border-2 border-gray-800 p-2 text-center rounded">
-                                    <label
-                                        class="block text-[9px] uppercase font-bold text-gray-500">Proficiência</label>
-                                    <div class="text-3xl font-black cinzel mt-1">+2</div>
-                                </div>
-                            </div>
-
-                            <!-- HP & Hit Dice -->
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="border border-gray-400 p-2 rounded bg-gray-50">
-                                    <div class="flex justify-between text-[9px] uppercase font-bold text-gray-500 mb-1">
-                                        <span>Pontos de Vida Máximos</span>
-                                        <span class="w-12 border-b border-gray-400"></span>
+                            <!-- Col 1: Attributes & Skills (4 cols) -->
+                            <div class="col-span-4 space-y-6">
+                                <!-- Attributes -->
+                                <div class="space-y-3">
+                                    <div
+                                        class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
+                                        <div class="text-center w-12">
+                                            <span class="block text-xs font-bold uppercase text-gray-500">FOR</span>
+                                            <div class="text-xl font-black cinzel">10</div>
+                                        </div>
+                                        <div class="text-sm font-bold text-gray-700">+0</div>
                                     </div>
                                     <div
-                                        class="h-16 text-center flex items-center justify-center text-4xl text-gray-200 font-bold">
-                                        PV ATUAIS</div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <div class="border border-gray-400 p-2 rounded bg-gray-50">
-                                        <label
-                                            class="block text-[9px] uppercase font-bold text-gray-500 text-center">Dados
-                                            de Vida</label>
-                                        <div class="h-12"></div>
+                                        class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
+                                        <div class="text-center w-12">
+                                            <span class="block text-xs font-bold uppercase text-gray-500">DES</span>
+                                            <div class="text-xl font-black cinzel">10</div>
+                                        </div>
+                                        <div class="text-sm font-bold text-gray-700">+0</div>
                                     </div>
-                                    <div class="border border-gray-400 p-2 rounded bg-gray-50">
+                                    <div
+                                        class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
+                                        <div class="text-center w-12">
+                                            <span class="block text-xs font-bold uppercase text-gray-500">CON</span>
+                                            <div class="text-xl font-black cinzel">10</div>
+                                        </div>
+                                        <div class="text-sm font-bold text-gray-700">+0</div>
+                                    </div>
+                                    <div
+                                        class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
+                                        <div class="text-center w-12">
+                                            <span class="block text-xs font-bold uppercase text-gray-500">INT</span>
+                                            <div class="text-xl font-black cinzel">10</div>
+                                        </div>
+                                        <div class="text-sm font-bold text-gray-700">+0</div>
+                                    </div>
+                                    <div
+                                        class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
+                                        <div class="text-center w-12">
+                                            <span class="block text-xs font-bold uppercase text-gray-500">SAB</span>
+                                            <div class="text-xl font-black cinzel">10</div>
+                                        </div>
+                                        <div class="text-sm font-bold text-gray-700">+0</div>
+                                    </div>
+                                    <div
+                                        class="flex items-center justify-between bg-gray-100 p-2 rounded border border-gray-300">
+                                        <div class="text-center w-12">
+                                            <span class="block text-xs font-bold uppercase text-gray-500">CAR</span>
+                                            <div class="text-xl font-black cinzel">10</div>
+                                        </div>
+                                        <div class="text-sm font-bold text-gray-700">+0</div>
+                                    </div>
+                                </div>
+
+                                <!-- Skills -->
+                                <div>
+                                    <h3 class="font-bold text-xs uppercase border-b border-gray-800 mb-2">Perícias</h3>
+                                    <ul class="text-[10px] space-y-1">
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Des)</span> Acrobacia
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Sab)</span> Adestrar Animais
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Int)</span> Arcanismo
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(For)</span> Atletismo
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Car)</span> Atuação
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Car)</span> Blefe
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Des)</span> Furtividade
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Int)</span> História
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Car)</span> Intimidação
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Sab)</span> Intuição
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Int)</span> Investigação
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Sab)</span> Medicina
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Int)</span> Natureza
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Sab)</span> Percepção
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Car)</span> Persuasão
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Des)</span> Prestidigitação
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Int)</span> Religião
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="w-3 h-3 border border-gray-400 rounded-full mr-2"></div> <span
+                                                class="text-gray-400 mr-1">(Sab)</span> Sobrevivência
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Col 2: Vitals & Combat (8 cols) -->
+                            <div class="col-span-8 space-y-6">
+
+                                <!-- Vitals Row -->
+                                <div class="grid grid-cols-4 gap-4">
+                                    <div class="col-span-1 border-2 border-gray-800 p-2 text-center rounded">
+                                        <label class="block text-[9px] uppercase font-bold text-gray-500">Classe de
+                                            Armadura</label>
+                                        <div class="text-3xl font-black cinzel mt-1"></div>
+                                    </div>
+                                    <div class="col-span-1 border-2 border-gray-800 p-2 text-center rounded">
                                         <label
-                                            class="block text-[9px] uppercase font-bold text-gray-500 text-center">Exaustão</label>
-                                        <div class="h-12 flex justify-center items-center space-x-1">
-                                            <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
-                                            <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
-                                            <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
-                                            <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
-                                            <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
-                                            <div class="w-3 h-3 border border-gray-400 rounded-full bg-black"></div>
+                                            class="block text-[9px] uppercase font-bold text-gray-500">Iniciativa</label>
+                                        <div class="text-3xl font-black cinzel mt-1"></div>
+                                    </div>
+                                    <div class="col-span-1 border-2 border-gray-800 p-2 text-center rounded">
+                                        <label
+                                            class="block text-[9px] uppercase font-bold text-gray-500">Deslocamento</label>
+                                        <div class="text-3xl font-black cinzel mt-1"></div>
+                                    </div>
+                                    <div class="col-span-1 border-2 border-gray-800 p-2 text-center rounded">
+                                        <label
+                                            class="block text-[9px] uppercase font-bold text-gray-500">Proficiência</label>
+                                        <div class="text-3xl font-black cinzel mt-1">+2</div>
+                                    </div>
+                                </div>
+
+                                <!-- HP & Hit Dice -->
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="border border-gray-400 p-2 rounded bg-gray-50">
+                                        <div
+                                            class="flex justify-between text-[9px] uppercase font-bold text-gray-500 mb-1">
+                                            <span>Pontos de Vida Máximos</span>
+                                            <span class="w-12 border-b border-gray-400"></span>
+                                        </div>
+                                        <div
+                                            class="h-16 text-center flex items-center justify-center text-4xl text-gray-200 font-bold">
+                                            PV ATUAIS</div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div class="border border-gray-400 p-2 rounded bg-gray-50">
+                                            <label
+                                                class="block text-[9px] uppercase font-bold text-gray-500 text-center">Dados
+                                                de Vida</label>
+                                            <div class="h-12"></div>
+                                        </div>
+                                        <div class="border border-gray-400 p-2 rounded bg-gray-50">
+                                            <label
+                                                class="block text-[9px] uppercase font-bold text-gray-500 text-center">Exaustão</label>
+                                            <div class="h-12 flex justify-center items-center space-x-1">
+                                                <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
+                                                <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
+                                                <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
+                                                <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
+                                                <div class="w-3 h-3 border border-gray-400 rounded-full"></div>
+                                                <div class="w-3 h-3 border border-gray-400 rounded-full bg-black"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Social Stats -->
-                            <div class="grid grid-cols-3 gap-4 border-t-2 border-b-2 border-gray-200 py-4">
-                                <div class="text-center">
-                                    <label class="block text-[9px] uppercase font-bold text-red-800">Determinação (PV
-                                        Social)</label>
-                                    <div class="text-xl font-bold cinzel text-gray-800 mt-1"></div>
-                                    <div class="text-[9px] text-gray-400">10 + Sab + Nível</div>
-                                </div>
-                                <div class="text-center">
-                                    <label class="block text-[9px] uppercase font-bold text-blue-800">Insight (Defesa
-                                        Social)</label>
-                                    <div class="text-xl font-bold cinzel text-gray-800 mt-1"></div>
-                                    <div class="text-[9px] text-gray-400">10 + Intuição</div>
-                                </div>
-                                <div class="text-center">
-                                    <label class="block text-[9px] uppercase font-bold text-yellow-700">Status da
-                                        Casa</label>
-                                    <div class="flex justify-center mt-2 space-x-1">
-                                        <div class="w-3 h-3 bg-yellow-700 rounded-full"></div>
-                                        <div class="w-3 h-3 bg-yellow-700 rounded-full"></div>
-                                        <div class="w-3 h-3 border border-yellow-700 rounded-full"></div>
-                                        <div class="w-3 h-3 border border-yellow-700 rounded-full"></div>
-                                        <div class="w-3 h-3 border border-yellow-700 rounded-full"></div>
+                                <!-- Social Stats -->
+                                <div class="grid grid-cols-3 gap-4 border-t-2 border-b-2 border-gray-200 py-4">
+                                    <div class="text-center">
+                                        <label class="block text-[9px] uppercase font-bold text-red-800">Determinação
+                                            (PV
+                                            Social)</label>
+                                        <div class="text-xl font-bold cinzel text-gray-800 mt-1"></div>
+                                        <div class="text-[9px] text-gray-400">10 + Sab + Nível</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <label class="block text-[9px] uppercase font-bold text-blue-800">Insight
+                                            (Defesa
+                                            Social)</label>
+                                        <div class="text-xl font-bold cinzel text-gray-800 mt-1"></div>
+                                        <div class="text-[9px] text-gray-400">10 + Intuição</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <label class="block text-[9px] uppercase font-bold text-yellow-700">Status da
+                                            Casa</label>
+                                        <div class="flex justify-center mt-2 space-x-1">
+                                            <div class="w-3 h-3 bg-yellow-700 rounded-full"></div>
+                                            <div class="w-3 h-3 bg-yellow-700 rounded-full"></div>
+                                            <div class="w-3 h-3 border border-yellow-700 rounded-full"></div>
+                                            <div class="w-3 h-3 border border-yellow-700 rounded-full"></div>
+                                            <div class="w-3 h-3 border border-yellow-700 rounded-full"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Weapons Table -->
-                            <div>
-                                <h3 class="font-bold text-xs uppercase border-b border-gray-800 mb-2">Ataques & Magias
-                                </h3>
-                                <table class="w-full text-xs text-left">
-                                    <thead>
-                                        <tr class="text-gray-500 border-b border-gray-300">
-                                            <th class="pb-1 w-1/3">Nome</th>
-                                            <th class="pb-1 w-1/6 text-center">Bônus</th>
-                                            <th class="pb-1 w-1/3">Dano/Tipo</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-gray-800">
-                                        <tr class="border-b border-gray-200 h-8">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 h-8">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 h-8">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <!-- Equipment & Features Grid -->
-                            <div class="grid grid-cols-2 gap-6">
+                                <!-- Weapons Table -->
                                 <div>
-                                    <h3 class="font-bold text-xs uppercase border-b border-gray-800 mb-2">Equipamento
+                                    <h3 class="font-bold text-xs uppercase border-b border-gray-800 mb-2">Ataques &
+                                        Magias
                                     </h3>
-                                    <div class="space-y-1">
-                                        <div class="border-b border-gray-200 h-6"></div>
-                                        <div class="border-b border-gray-200 h-6"></div>
-                                        <div class="border-b border-gray-200 h-6"></div>
-                                        <div class="border-b border-gray-200 h-6"></div>
-                                        <div class="border-b border-gray-200 h-6"></div>
-                                        <div class="border-b border-gray-200 h-6"></div>
-                                        <div class="border-b border-gray-200 h-6"></div>
-                                        <div class="border-b border-gray-200 h-6"></div>
+                                    <table class="w-full text-xs text-left">
+                                        <thead>
+                                            <tr class="text-gray-500 border-b border-gray-300">
+                                                <th class="pb-1 w-1/3">Nome</th>
+                                                <th class="pb-1 w-1/6 text-center">Bônus</th>
+                                                <th class="pb-1 w-1/3">Dano/Tipo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-800">
+                                            <tr class="border-b border-gray-200 h-8">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr class="border-b border-gray-200 h-8">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr class="border-b border-gray-200 h-8">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Equipment & Features Grid -->
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div>
+                                        <h3 class="font-bold text-xs uppercase border-b border-gray-800 mb-2">
+                                            Equipamento
+                                        </h3>
+                                        <div class="space-y-1">
+                                            <div class="border-b border-gray-200 h-6"></div>
+                                            <div class="border-b border-gray-200 h-6"></div>
+                                            <div class="border-b border-gray-200 h-6"></div>
+                                            <div class="border-b border-gray-200 h-6"></div>
+                                            <div class="border-b border-gray-200 h-6"></div>
+                                            <div class="border-b border-gray-200 h-6"></div>
+                                            <div class="border-b border-gray-200 h-6"></div>
+                                            <div class="border-b border-gray-200 h-6"></div>
+                                        </div>
+                                        <div class="mt-4 flex justify-between text-xs text-gray-600">
+                                            <span><strong>PO:</strong> _____</span>
+                                            <span><strong>PP:</strong> _____</span>
+                                            <span><strong>PC:</strong> _____</span>
+                                        </div>
                                     </div>
-                                    <div class="mt-4 flex justify-between text-xs text-gray-600">
-                                        <span><strong>PO:</strong> _____</span>
-                                        <span><strong>PP:</strong> _____</span>
-                                        <span><strong>PC:</strong> _____</span>
+                                    <div>
+                                        <h3 class="font-bold text-xs uppercase border-b border-gray-800 mb-2">
+                                            Características & Talentos</h3>
+                                        <div class="border border-gray-300 rounded h-48 bg-gray-50"></div>
                                     </div>
                                 </div>
-                                <div>
-                                    <h3 class="font-bold text-xs uppercase border-b border-gray-800 mb-2">
-                                        Características & Talentos</h3>
-                                    <div class="border border-gray-300 rounded h-48 bg-gray-50"></div>
+
+                                <!-- Wounds -->
+                                <div class="border-2 border-dashed border-red-900/30 bg-red-900/5 p-3 rounded">
+                                    <h3 class="font-bold text-xs uppercase text-red-900 mb-1">Ferimentos Persistentes &
+                                        Cicatrizes</h3>
+                                    <div class="h-12 border-b border-red-900/20"></div>
+                                    <div class="h-12 border-b border-red-900/20"></div>
                                 </div>
-                            </div>
 
-                            <!-- Wounds -->
-                            <div class="border-2 border-dashed border-red-900/30 bg-red-900/5 p-3 rounded">
-                                <h3 class="font-bold text-xs uppercase text-red-900 mb-1">Ferimentos Persistentes &
-                                    Cicatrizes</h3>
-                                <div class="h-12 border-b border-red-900/20"></div>
-                                <div class="h-12 border-b border-red-900/20"></div>
                             </div>
+                        </div>
 
+                        <!-- Footer -->
+                        <div
+                            class="absolute bottom-4 left-0 w-full text-center text-[9px] text-gray-400 uppercase tracking-widest">
+                            Trono & Cinzas • Guia do Mestre v1.1
                         </div>
                     </div>
+                </div>
 
-                    <!-- Footer -->
-                    <div
-                        class="absolute bottom-4 left-0 w-full text-center text-[9px] text-gray-400 uppercase tracking-widest">
-                        Trono & Cinzas • Guia do Mestre v1.1
+                <!-- SECTION: EQUIPMENT -->
+                <div id="equipment" class="content-section hidden">
+                    <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="swords"
+                            class="mr-3"></i>
+                        Equipamentos & Itens</h2>
+
+                    <div class="prose prose-stone max-w-none mb-8">
+                        <p class="text-lg leading-relaxed">
+                            Em Aethelgard, um bom equipamento pode significar a diferença entre vida e morte. Armaduras
+                            são
+                            símbolos de status, armas carregam histórias de gerações, e venenos são ferramentas de poder
+                            político.
+                        </p>
                     </div>
+
+                    <!-- Category Filters -->
+                    <div class="mb-8 flex flex-wrap gap-3">
+                        <button onclick="filterEquipment('all')"
+                            class="equipment-filter active px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-white hover:bg-red-900 transition-colors font-semibold text-sm"
+                            data-category="all">
+                            <i data-lucide="grid-3x3" class="w-4 h-4 inline mr-2"></i>Todos
+                        </button>
+                        <button onclick="filterEquipment('weapons')"
+                            class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                            data-category="weapons">
+                            <i data-lucide="sword" class="w-4 h-4 inline mr-2"></i>Armas
+                        </button>
+                        <button onclick="filterEquipment('armor')"
+                            class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                            data-category="armor">
+                            <i data-lucide="shield" class="w-4 h-4 inline mr-2"></i>Armaduras
+                        </button>
+                        <button onclick="filterEquipment('tools')"
+                            class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                            data-category="tools">
+                            <i data-lucide="wrench" class="w-4 h-4 inline mr-2"></i>Ferramentas
+                        </button>
+                        <button onclick="filterEquipment('poisons')"
+                            class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                            data-category="poisons">
+                            <i data-lucide="flask-conical" class="w-4 h-4 inline mr-2"></i>Venenos
+                        </button>
+                        <button onclick="filterEquipment('rare')"
+                            class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                            data-category="rare">
+                            <i data-lucide="gem" class="w-4 h-4 inline mr-2"></i>Itens Raros
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-equipment"></div>
                 </div>
+
+                <!-- SECTION: BESTIARY -->
+                <div id="bestiary" class="content-section hidden">
+                    <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="skull"
+                            class="mr-3"></i>
+                        Bestiário</h2>
+
+                    <div class="prose prose-stone max-w-none mb-8">
+                        <p class="text-lg leading-relaxed">
+                            As criaturas de Aethelgard não são apenas monstros para serem mortos por XP. São forças da
+                            natureza, maldições ambulantes e predadores que veem os humanos como presas fáceis.
+                        </p>
+                    </div>
+
+                    <!-- Category Filters -->
+                    <div class="mb-8 flex flex-wrap gap-3">
+                        <button onclick="filterBestiary('all')"
+                            class="bestiary-filter active px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-white hover:bg-red-900 transition-colors font-semibold text-sm"
+                            data-category="all">
+                            <i data-lucide="grid-3x3" class="w-4 h-4 inline mr-2"></i>Todos
+                        </button>
+                        <button onclick="filterBestiary('beast')"
+                            class="bestiary-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                            data-category="beast">
+                            <i data-lucide="paw-print" class="w-4 h-4 inline mr-2"></i>Feras
+                        </button>
+                        <button onclick="filterBestiary('undead')"
+                            class="bestiary-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                            data-category="undead">
+                            <i data-lucide="ghost" class="w-4 h-4 inline mr-2"></i>Mortos-Vivos
+                        </button>
+                        <button onclick="filterBestiary('monstrosity')"
+                            class="bestiary-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                            data-category="monstrosity">
+                            <i data-lucide="alert-octagon" class="w-4 h-4 inline mr-2"></i>Monstruosidades
+                        </button>
+                        <button onclick="filterBestiary('humanoid')"
+                            class="bestiary-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                            data-category="humanoid">
+                            <i data-lucide="user" class="w-4 h-4 inline mr-2"></i>Humanoides
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-bestiary"></div>
+                </div>
+
+                <!-- SECTION: NPCS -->
+                <div id="npcs" class="content-section hidden">
+                    <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="users"
+                            class="mr-3"></i>
+                        Acervo de NPCs</h2>
+
+                    <div class="prose prose-stone max-w-none mb-8">
+                        <p class="text-lg leading-relaxed">
+                            Aliados, inimigos e contatos. Em Aethelgard, quem você conhece é mais importante do que o
+                            que
+                            você sabe.
+                        </p>
+                    </div>
+
+                    <!-- Category Filters -->
+                    <div class="mb-8 flex flex-wrap gap-3">
+                        <button onclick="filterNPCs('all')"
+                            class="npc-filter active px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-white hover:bg-red-900 transition-colors font-semibold text-sm"
+                            data-category="all">
+                            <i data-lucide="grid-3x3" class="w-4 h-4 inline mr-2"></i>Todos
+                        </button>
+                        <button onclick="filterNPCs('noble')"
+                            class="npc-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                            data-category="noble">
+                            <i data-lucide="crown" class="w-4 h-4 inline mr-2"></i>Nobres
+                        </button>
+                        <button onclick="filterNPCs('mercenary')"
+                            class="npc-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                            data-category="mercenary">
+                            <i data-lucide="sword" class="w-4 h-4 inline mr-2"></i>Mercenários
+                        </button>
+                        <button onclick="filterNPCs('commoner')"
+                            class="npc-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                            data-category="commoner">
+                            <i data-lucide="user" class="w-4 h-4 inline mr-2"></i>Plebeus
+                        </button>
+                        <button onclick="filterNPCs('mystic')"
+                            class="npc-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
+                            data-category="mystic">
+                            <i data-lucide="sparkles" class="w-4 h-4 inline mr-2"></i>Místicos
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-npcs"></div>
+                </div>
+
             </div>
-
-            <!-- SECTION: EQUIPMENT -->
-            <div id="equipment" class="content-section hidden">
-                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="swords" class="mr-3"></i>
-                    Equipamentos & Itens</h2>
-
-                <div class="prose prose-stone max-w-none mb-8">
-                    <p class="text-lg leading-relaxed">
-                        Em Aethelgard, um bom equipamento pode significar a diferença entre vida e morte. Armaduras são
-                        símbolos de status, armas carregam histórias de gerações, e venenos são ferramentas de poder
-                        político.
-                    </p>
-                </div>
-
-                <!-- Category Filters -->
-                <div class="mb-8 flex flex-wrap gap-3">
-                    <button onclick="filterEquipment('all')"
-                        class="equipment-filter active px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-white hover:bg-red-900 transition-colors font-semibold text-sm"
-                        data-category="all">
-                        <i data-lucide="grid-3x3" class="w-4 h-4 inline mr-2"></i>Todos
-                    </button>
-                    <button onclick="filterEquipment('weapons')"
-                        class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
-                        data-category="weapons">
-                        <i data-lucide="sword" class="w-4 h-4 inline mr-2"></i>Armas
-                    </button>
-                    <button onclick="filterEquipment('armor')"
-                        class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
-                        data-category="armor">
-                        <i data-lucide="shield" class="w-4 h-4 inline mr-2"></i>Armaduras
-                    </button>
-                    <button onclick="filterEquipment('tools')"
-                        class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
-                        data-category="tools">
-                        <i data-lucide="wrench" class="w-4 h-4 inline mr-2"></i>Ferramentas
-                    </button>
-                    <button onclick="filterEquipment('poisons')"
-                        class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
-                        data-category="poisons">
-                        <i data-lucide="flask-conical" class="w-4 h-4 inline mr-2"></i>Venenos
-                    </button>
-                    <button onclick="filterEquipment('rare')"
-                        class="equipment-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
-                        data-category="rare">
-                        <i data-lucide="gem" class="w-4 h-4 inline mr-2"></i>Itens Raros
-                    </button>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-equipment"></div>
-            </div>
-
-            <!-- SECTION: BESTIARY -->
-            <div id="bestiary" class="content-section hidden">
-                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="skull" class="mr-3"></i>
-                    Bestiário</h2>
-
-                <div class="prose prose-stone max-w-none mb-8">
-                    <p class="text-lg leading-relaxed">
-                        As criaturas de Aethelgard não são apenas monstros para serem mortos por XP. São forças da
-                        natureza, maldições ambulantes e predadores que veem os humanos como presas fáceis.
-                    </p>
-                </div>
-
-                <!-- Category Filters -->
-                <div class="mb-8 flex flex-wrap gap-3">
-                    <button onclick="filterBestiary('all')"
-                        class="bestiary-filter active px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-white hover:bg-red-900 transition-colors font-semibold text-sm"
-                        data-category="all">
-                        <i data-lucide="grid-3x3" class="w-4 h-4 inline mr-2"></i>Todos
-                    </button>
-                    <button onclick="filterBestiary('beast')"
-                        class="bestiary-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
-                        data-category="beast">
-                        <i data-lucide="paw-print" class="w-4 h-4 inline mr-2"></i>Feras
-                    </button>
-                    <button onclick="filterBestiary('undead')"
-                        class="bestiary-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
-                        data-category="undead">
-                        <i data-lucide="ghost" class="w-4 h-4 inline mr-2"></i>Mortos-Vivos
-                    </button>
-                    <button onclick="filterBestiary('monstrosity')"
-                        class="bestiary-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
-                        data-category="monstrosity">
-                        <i data-lucide="alert-octagon" class="w-4 h-4 inline mr-2"></i>Monstruosidades
-                    </button>
-                    <button onclick="filterBestiary('humanoid')"
-                        class="bestiary-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
-                        data-category="humanoid">
-                        <i data-lucide="user" class="w-4 h-4 inline mr-2"></i>Humanoides
-                    </button>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-bestiary"></div>
-            </div>
-
-            <!-- SECTION: NPCS -->
-            <div id="npcs" class="content-section hidden">
-                <h2 class="section-title text-3xl font-bold flex items-center"><i data-lucide="users" class="mr-3"></i>
-                    Acervo de NPCs</h2>
-
-                <div class="prose prose-stone max-w-none mb-8">
-                    <p class="text-lg leading-relaxed">
-                        Aliados, inimigos e contatos. Em Aethelgard, quem você conhece é mais importante do que o que
-                        você sabe.
-                    </p>
-                </div>
-
-                <!-- Category Filters -->
-                <div class="mb-8 flex flex-wrap gap-3">
-                    <button onclick="filterNPCs('all')"
-                        class="npc-filter active px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-white hover:bg-red-900 transition-colors font-semibold text-sm"
-                        data-category="all">
-                        <i data-lucide="grid-3x3" class="w-4 h-4 inline mr-2"></i>Todos
-                    </button>
-                    <button onclick="filterNPCs('noble')"
-                        class="npc-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
-                        data-category="noble">
-                        <i data-lucide="crown" class="w-4 h-4 inline mr-2"></i>Nobres
-                    </button>
-                    <button onclick="filterNPCs('mercenary')"
-                        class="npc-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
-                        data-category="mercenary">
-                        <i data-lucide="sword" class="w-4 h-4 inline mr-2"></i>Mercenários
-                    </button>
-                    <button onclick="filterNPCs('commoner')"
-                        class="npc-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
-                        data-category="commoner">
-                        <i data-lucide="user" class="w-4 h-4 inline mr-2"></i>Plebeus
-                    </button>
-                    <button onclick="filterNPCs('mystic')"
-                        class="npc-filter px-4 py-2 rounded border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-red-900 hover:text-white transition-colors font-semibold text-sm"
-                        data-category="mystic">
-                        <i data-lucide="sparkles" class="w-4 h-4 inline mr-2"></i>Místicos
-                    </button>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-npcs"></div>
-            </div>
-
-        </div>
     </main>
 
     <!-- Modal Structure for Houses -->
@@ -2983,6 +3025,132 @@
         lucide.createIcons();
 
     </script>
+</body>
+
+<script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Mobile Sidebar Toggle
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+
+        if (sidebar.classList.contains('-translate-x-full')) {
+            // Open
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+            // Small delay to allow display:block to apply before opacity transition
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+            }, 10);
+        } else {
+            // Close
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+        }
+    }
+
+    // Close sidebar when clicking a nav item on mobile
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+            if (window.innerWidth < 1024) { // lg breakpoint
+                toggleSidebar();
+            }
+        });
+    });
+
+    // Section Navigation
+    function showSection(sectionId) {
+        // Hide all sections
+        document.querySelectorAll('.content-section').forEach(el => {
+            el.classList.add('hidden');
+        });
+
+        // Show target section
+        document.getElementById(sectionId).classList.remove('hidden');
+
+        // Update active state in sidebar
+        document.querySelectorAll('.nav-item').forEach(el => {
+            el.classList.remove('active');
+        });
+
+        // Try to find the button that corresponds to this section
+        // Simple mapping or ID convention could be used. 
+        // For now, let's look for a button with onclick="showSection('sectionId')"
+        // Or we can just use the ID if we know it.
+        // Let's loop and check onclick attribute or id convention
+
+        // Mapping based on IDs defined in HTML
+        const btnMap = {
+            'intro': 'btn-intro',
+            'map': 'btn-map',
+            'lore': 'btn-lore',
+            'houses-north': 'btn-north',
+            'houses-coast': 'btn-coast',
+            'houses-plains': 'btn-plains',
+            'houses-wild': 'btn-wild',
+            'combat-blood': 'btn-blood',
+            'combat-tongue': 'btn-tongue',
+            'classes': 'btn-classes',
+            'magic': 'btn-magic',
+            'equipment': 'btn-equipment',
+            'bestiary': 'btn-bestiary',
+            'npcs': 'btn-npcs',
+            'character-sheet': 'btn-character-sheet'
+        };
+
+        const btnId = btnMap[sectionId];
+        if (btnId) {
+            const btn = document.getElementById(btnId);
+            if (btn) btn.classList.add('active');
+        }
+
+        // Scroll to top
+        document.querySelector('main').scrollTop = 0;
+    }
+
+    // Search Functionality
+    function handleSearch(query) {
+        query = query.toLowerCase();
+        const sections = document.querySelectorAll('.content-section');
+
+        if (query.length < 3) {
+            // If search is cleared, do nothing or maybe show intro? 
+            // Better: just stop highlighting. 
+            // For this simple implementation, we won't do complex search result pages yet.
+            return;
+        }
+
+        // Simple: Find first section with match and switch to it?
+        // Or filter sidebar items?
+
+        // Let's filter sidebar items for now
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            if (item.innerText.toLowerCase().includes(query)) {
+                item.parentElement.style.display = 'block';
+            } else {
+                item.parentElement.style.display = 'none';
+            }
+        });
+    }
+
+    // Restore all nav items when search is empty
+    document.getElementById('search-input').addEventListener('keyup', (e) => {
+        if (e.target.value === '') {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.parentElement.style.display = 'block';
+            });
+        }
+    });
+
+    // Initial Load
+    // showSection('intro'); // Already default in HTML structure
+</script>
 </body>
 
 </html>
